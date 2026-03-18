@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Elevate Fitness</title>
-</head>
-<body>
+    <head>
+        <title>Elevate Fitness</title>
+    </head>
+    <body>
 
-<h1>Welcome to Elevate Fitness</h1>
+        <h1>Welcome to Elevate Fitness</h1>
 
-<p>Train smarter. Train together.</p>
+        <p>Train smarter. Train together.</p>
 
-<ul>
-    <li><a href="/classes/">View Upcoming Classes</a></li>
-    <li><a href="/instructors/">Meet Our Instructors</a></li>
-</ul>
+        <ul>
+            <li><a href="/classes/">View Upcoming Classes</a></li>
+            <li><a href="/instructors/">Meet Our Instructors</a></li>
+        </ul>
 
-</body>
+        {% if user.is_authenticated %}
+            <p>Welcome {{ user.first_name }}!</p>
+            <form method="post" action="/accounts/logout/">
+                {% csrf_token %}
+                <button type="submit">Log out</button>
+            </form>
+        {% else %}
+            <p>
+                <a href="/accounts/login/">Log in</a>
+                <a href="/accounts/register/">Register</a>
+            </p>
+        {% endif %}
+    </body>
 </html>

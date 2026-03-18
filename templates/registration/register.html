@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register</title>
+    </head>
+
+    <body>
+
+        <h1>Create an account</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            <p>
+                First name:<br>
+                <input type="text" name="first_name" required>
+            </p>
+            <p>
+                Last name:<br>
+                <input type="text" name="last_name" required>
+            </p>
+            {{ form.as_p }}
+            <button type="submit">Register</button>
+        </form>
+
+        <p><a href="/accounts/login/">Already have an account? Log in</a></p>
+    
+    </body>
+</html>

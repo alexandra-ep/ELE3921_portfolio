@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>{{ fitness_class.class_type.name }}</title>
-</head>
-<body>
-    <h1>{{ fitness_class.class_type.name }}</h1>
+    <head>
+        <title>{{ fitness_class.class_type.name }}</title>
+    </head>
+    <body>
+        <h1>{{ fitness_class.class_type.name }}</h1>
 
-    <p><strong>Category:</strong> {{ fitness_class.class_type.category.name }} </p>
-    <p><strong>Instructor:</strong> {{ fitness_class.instructor }} </p>
-    <p><strong>Location:</strong> {{ fitness_class.location }} </p>
-    <p><strong>Date and time:</strong> {{ fitness_class.start_time|date:"d/m/y H:i" }} </p>
-    <p><strong>Duration:</strong> {{ fitness_class.class_type.duration_minutes }} minutes</p>
-    <p><strong>Description:</strong> {{ fitness_class.class_type.description }} </p>
-    <p><strong>Capacity:</strong> {{ fitness_class.capacity }} </p>
-    <p><strong>Spots remaining:</strong> {{ fitness_class.spots_remaining }} </p>
-    <p><strong>Status:</strong> {{ fitness_class.status }} </p>
+        <p><strong>Category:</strong> {{ fitness_class.class_type.category.name }} </p>
+        <p><strong>Instructor:</strong> {{ fitness_class.instructor }} </p>
+        <p><strong>Location:</strong> {{ fitness_class.location }} </p>
+        <p><strong>Date and time:</strong> {{ fitness_class.start_time|date:"d/m/y H:i" }} </p>
+        <p><strong>Duration:</strong> {{ fitness_class.class_type.duration_minutes }} minutes</p>
+        <p><strong>Description:</strong> {{ fitness_class.class_type.description }} </p>
+        <p><strong>Capacity:</strong> {{ fitness_class.capacity }} </p>
+        <p><strong>Spots remaining:</strong> {{ fitness_class.spots_remaining }} </p>
+        <p><strong>Status:</strong> {{ fitness_class.status }} </p>
 
-    <p><a href="/classes/">Back to classes</a></p>
-</body>
+        <p><a href="/classes/">Back to classes</a></p>
+    </body>
 </html>
