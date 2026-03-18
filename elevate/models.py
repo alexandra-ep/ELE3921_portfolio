@@ -77,6 +77,10 @@ class FitnessClass(models.Model):
     capacity = models.PositiveIntegerField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='scheduled')
 
+    class Meta:
+        verbose_name = "Fitness class"
+        verbose_name_plural = "Fitness classes"
+
     def __str__(self):
         return f"{self.class_type.name} - {self.start_time.strftime('%d.%m.%Y %H:%M')}"
     

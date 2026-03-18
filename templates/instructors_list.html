@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Our Instructors</title>
+</head>
+<body>
+    <h1>Our Instructors</h1>
+
+    {% if instructors %}
+        <ul>
+            {% for instructor in instructors %}
+                <li>
+                    <strong>{{ instructor.first_name }} {{ instructor.last_name }}</strong><br>
+                    Bio: {{ instructor.bio }}
+                </li>
+                <br>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No instructors available.</p>
+    {% endif %}
+</body>
+</html>
