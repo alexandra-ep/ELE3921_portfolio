@@ -10,7 +10,11 @@
         <ul>
             {% for fitness_class in classes %}
                 <li>
-                    <strong>{{ fitness_class.class_type.name }}</strong><br>
+                    <strong>
+                        <a href="/classes/{{ fitness_class.id }}/">
+                            {{ fitness_class.class_type.name }}
+                        </a>
+                    </strong><br>
                     Instructor: {{ fitness_class.instructor }}<br>
                     Location: {{ fitness_class.location }}<br>
                     Time: {{ fitness_class.start_time|date:"d/m/y H:i" }}<br>
