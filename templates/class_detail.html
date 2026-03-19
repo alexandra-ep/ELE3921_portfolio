@@ -16,6 +16,25 @@
         <p><strong>Spots remaining:</strong> {{ fitness_class.spots_remaining }} </p>
         <p><strong>Status:</strong> {{ fitness_class.status }} </p>
 
+        {% if user.is_authenticated %}
+
+            {% if user_booking %}
+                <p><strong>You have already booked this class</strong></p>
+                <form method="post" action="/classes/{{ fitness_class.id }}/cancel/">
+                    {% csrf_token %}
+                    <button type="submit">Cancel booking</button>
+                </form>
+            {% else %}
+                <form method="post" action="/classes/{{ fitness_class.id }}/book/">
+                    {% csrf_token %}
+                    <button type="submit">Book</button>
+                </form>
+            {% endif %}
+
+        {% else %}
+            <p><a href="/accounts/login/">Log in to book this class</a></p>
+        {% endif %}        
+
         <p><a href="/classes/">Back to classes</a></p>
     </body>
 </html>

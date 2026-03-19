@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from .models import FitnessClass, Instructor
+from django.contrib.auth.decorators import login_required
+from .models import FitnessClass, Instructor, Booking
 
 
 def home(request):
@@ -20,7 +21,19 @@ def instructors_list(request):
 
 def class_detail(request, class_id):
     fitness_class = get_object_or_404(FitnessClass, id=class_id)
-    return render(request, "class_detail.html", {"fitness_class": fitness_class})
+
+    user_booking = None
+
+    if request.user.is_authenticated:
+        user_booking = Booking.objects.filter(
+            user=request.user,
+            fitness_class=fitness_class
+        ).first()
+    
+    return render(request, "class_detail.html", {
+        "fitness_class": fitness_class,
+        "user_booking": user_booking
+    })
 
 
 def register(request):
@@ -42,3 +55,38 @@ def register(request):
         form = UserCreationForm()
     
     return render (request, "registration/register.html", {"form": form})
+
+
+ 
+@login_required
+def book_class(request, class_id):
+    fitness_class = get_object_or_404(FitnessClass, id=class_id)
+
+    # Check if user already booked this class
+    existing_booking = Booking.objects.filter(
+        user=request.user,
+        fitness_class=fitness_class
+    ).exists()
+    
+    if not existing_booking:
+        Booking.objects.create(
+            user=request.user,
+            fitness_class=fitness_class
+        )
+
+    return redirect("class_detail", class_id=fitness_class.id)
+
+
+@login_required
+def cancel_booking(request, class_id):
+    fitness_class = get_object_or_404(FitnessClass, id=class_id)
+
+    booking = Booking.objects.filter(
+        user=request.user,
+        fitness_class=fitness_class
+    ).first()
+
+    if booking:
+        booking.delete()
+
+    return redirect("class_detail", class_id=fitness_class.id)
