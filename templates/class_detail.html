@@ -24,6 +24,10 @@
                     {% csrf_token %}
                     <button type="submit">Cancel booking</button>
                 </form>
+
+            {% elif fitness_class.is_full %}
+                <p><strong>Class is full.</strong></p>
+
             {% else %}
                 <form method="post" action="/classes/{{ fitness_class.id }}/book/">
                     {% csrf_token %}
@@ -32,7 +36,11 @@
             {% endif %}
 
         {% else %}
+            {% if fitness_class.is_full %}
+                <p><strong>Class is full.</strong></p>
+            {% else %}
             <p><a href="/accounts/login/">Log in to book this class</a></p>
+            {% endif %}
         {% endif %}        
 
         <p><a href="/classes/">Back to classes</a></p>

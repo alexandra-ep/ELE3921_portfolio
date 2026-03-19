@@ -68,7 +68,7 @@ def book_class(request, class_id):
         fitness_class=fitness_class
     ).exists()
     
-    if not existing_booking:
+    if not existing_booking and not fitness_class.is_full():
         Booking.objects.create(
             user=request.user,
             fitness_class=fitness_class
@@ -90,3 +90,15 @@ def cancel_booking(request, class_id):
         booking.delete()
 
     return redirect("class_detail", class_id=fitness_class.id)
+
+
+@login_required
+def my_bookings(request):
+    bookings = Booking.objects.filter(user=request.user).select_related(
+        "fitness_class",
+        "fitness_class__class_type",
+        "fitness_class__instructor",
+        "fitness_class__location"
+    ).order_by("fitness_class__start_time")
+
+    return render(request, "my_bookings.html", {"bookings": bookings})
