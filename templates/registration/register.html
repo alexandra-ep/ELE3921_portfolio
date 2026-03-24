@@ -1,47 +1,23 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Register</title>
-    </head>
+{% extends 'base.html' %}
 
-    <body>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/classes/">Classes</a>
-            <a href="/instructors/">Our Instructors</a>
-        
-            {% if user.is_authenticated %}
-                <a href="/my-bookings/">My Bookings</a>
-            {% endif %}
+{% block title %}Elevate | Register{% endblock %}
 
-            {% if user.is_authenticated %}
-            <form method="post" action="/accounts/logout/">
-                {% csrf_token %}
-                <button type="submit">Log Out</button>
-            </form>
-            {% else %}
-                <a href="/accounts/login/">Log In</a>
-                <a href="/accounts/register/">Register</a>
-            {% endif %}
-        </nav>
+{% block content %}
+    <h1>Create an account</h1>
 
-        <h1>Create an account</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            First name:<br>
+            <input type="text" name="first_name" required>
+        </p>
+        <p>
+            Last name:<br>
+            <input type="text" name="last_name" required>
+        </p>
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
 
-        <form method="post">
-            {% csrf_token %}
-            <p>
-                First name:<br>
-                <input type="text" name="first_name" required>
-            </p>
-            <p>
-                Last name:<br>
-                <input type="text" name="last_name" required>
-            </p>
-            {{ form.as_p }}
-            <button type="submit">Register</button>
-        </form>
-
-        <p><a href="/accounts/login/">Already have an account? Log in</a></p>
-    
-    </body>
-</html>
+    <p><a href="/accounts/login/">Already have an account? Log in</a></p>
+{% endblock %}

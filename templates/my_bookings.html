@@ -1,52 +1,29 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>My Bookings</title>
-    </head>
+{% extends 'base.html' %}
 
-    <body>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/classes/">Classes</a>
-            <a href="/instructors/">Our Instructors</a>
-        
-            {% if user.is_authenticated %}
-                <a href="/my-bookings/">My Bookings</a>
-            {% endif %}
+{% block title %}Elevate | My Bookings{% endblock %}
 
-            {% if user.is_authenticated %}
-            <form method="post" action="/accounts/logout/">
-                {% csrf_token %}
-                <button type="submit">Log Out</button>
-            </form>
-            {% else %}
-                <a href="/accounts/login/">Log In</a>
-                <a href="/accounts/register/">Register</a>
-            {% endif %}
-        </nav>
+{% block content %}
+    <h1>My Bookings</h1>
+    {% if bookings %}
+        <ul>
+            {% for booking in bookings %}
+                <li>
+                    <strong>
+                        <a href="/classes/{{  booking.fitness_class.id }}/">
+                            {{ booking.fitness_class.class_type.name }}
+                        </a>
+                    </strong><br>
+                    Instructor: {{ booking.fitness_class.instructor }}<br>
+                    Location: {{ booking.fitness_class.location }}<br>
+                    Time: {{  booking.fitness_class.start_time|date:"d/m/y H:i" }} - {{ booking.fitness_class.end_time|date:"H:i" }}<br>
+                    Status: {{ booking.status }}
+                </li>
+                <br>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You do not have any bookings yet.</p>
+    {% endif %}
 
-        <h1>My Bookings</h1>
-        {% if bookings %}
-            <ul>
-                {% for booking in bookings %}
-                    <li>
-                        <strong>
-                            <a href="/classes/{{  booking.fitness_class.id }}/">
-                                {{ booking.fitness_class.class_type.name }}
-                            </a>
-                        </strong><br>
-                        Instructor: {{ booking.fitness_class.instructor }}<br>
-                        Location: {{ booking.fitness_class.location }}<br>
-                        Time: {{  booking.fitness_class.start_time|date:"d/m/y H:i" }} - {{ booking.fitness_class.end_time|date:"H:i" }}<br>
-                        Status: {{ booking.status }}
-                    </li>
-                    <br>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>You do not have any bookings yet.</p>
-        {% endif %}
-
-        <p><a href="/">Back to home</a></p>
-    </body>
-</html>
+    <p><a href="/">Back to home</a></p>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <title> 
+            {% block title %}Elevate{% endblock %}
+        </title>
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'classes_list' %}">Classes</a>
+                <a href="{% url 'instructors_list' %}">Our Instructors</a>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'my_bookings' %}">My Bookings</a>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Log Out</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Log In</a>
+                    <a href="{% url 'register' %}">Register</a>
+                {% endif %}
+            </nav>
+        </header>
+
+        <main>
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer class="footer">
+            <div class="footer-logo">
+                <h2 class="footer-logo-icon">Elevate</h2>
+            </div>
+
+            <div class="footer-socials">
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">TikTok</a>
+            </div>
+
+            <div class="footer-copy">
+                <p>© 2026 Elevate. All rights reserved.</p>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,68 +1,46 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>{{ fitness_class.class_type.name }}</title>
-    </head>
-    <body>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/classes/">Classes</a>
-            <a href="/instructors/">Our Instructors</a>
-        
-            {% if user.is_authenticated %}
-                <a href="/my-bookings/">My Bookings</a>
-            {% endif %}
+{% extends 'base.html' %}
 
-            {% if user.is_authenticated %}
-            <form method="post" action="/accounts/logout/">
+{% block title %}Elevate | {{ fitness_class.class_type.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ fitness_class.class_type.name }}</h1>
+
+    <p><strong>Category:</strong> {{ fitness_class.class_type.category.name }} </p>
+    <p><strong>Instructor:</strong> {{ fitness_class.instructor }} </p>
+    <p><strong>Location:</strong> {{ fitness_class.location }} </p>
+    <p><strong>Date and time:</strong> {{ fitness_class.start_time|date:"d/m/y H:i" }} </p>
+    <p><strong>Duration:</strong> {{ fitness_class.class_type.duration_minutes }} minutes</p>
+    <p><strong>Description:</strong> {{ fitness_class.class_type.description }} </p>
+    <p><strong>Capacity:</strong> {{ fitness_class.capacity }} </p>
+    <p><strong>Spots remaining:</strong> {{ fitness_class.spots_remaining }} </p>
+    <p><strong>Status:</strong> {{ fitness_class.status }} </p>
+
+    {% if user.is_authenticated %}
+
+        {% if user_booking %}
+            <p><strong>You have already booked this class</strong></p>
+            <form method="post" action="/classes/{{ fitness_class.id }}/cancel/">
                 {% csrf_token %}
-                <button type="submit">Log Out</button>
+                <button type="submit">Cancel booking</button>
             </form>
-            {% else %}
-                <a href="/accounts/login/">Log In</a>
-                <a href="/accounts/register/">Register</a>
-            {% endif %}
-        </nav>
 
-        <h1>{{ fitness_class.class_type.name }}</h1>
+        {% elif fitness_class.is_full %}
+            <p><strong>Class is full.</strong></p>
 
-        <p><strong>Category:</strong> {{ fitness_class.class_type.category.name }} </p>
-        <p><strong>Instructor:</strong> {{ fitness_class.instructor }} </p>
-        <p><strong>Location:</strong> {{ fitness_class.location }} </p>
-        <p><strong>Date and time:</strong> {{ fitness_class.start_time|date:"d/m/y H:i" }} </p>
-        <p><strong>Duration:</strong> {{ fitness_class.class_type.duration_minutes }} minutes</p>
-        <p><strong>Description:</strong> {{ fitness_class.class_type.description }} </p>
-        <p><strong>Capacity:</strong> {{ fitness_class.capacity }} </p>
-        <p><strong>Spots remaining:</strong> {{ fitness_class.spots_remaining }} </p>
-        <p><strong>Status:</strong> {{ fitness_class.status }} </p>
-
-        {% if user.is_authenticated %}
-
-            {% if user_booking %}
-                <p><strong>You have already booked this class</strong></p>
-                <form method="post" action="/classes/{{ fitness_class.id }}/cancel/">
-                    {% csrf_token %}
-                    <button type="submit">Cancel booking</button>
-                </form>
-
-            {% elif fitness_class.is_full %}
-                <p><strong>Class is full.</strong></p>
-
-            {% else %}
-                <form method="post" action="/classes/{{ fitness_class.id }}/book/">
-                    {% csrf_token %}
-                    <button type="submit">Book</button>
-                </form>
-            {% endif %}
+        {% else %}
+            <form method="post" action="/classes/{{ fitness_class.id }}/book/">
+                {% csrf_token %}
+                <button type="submit">Book</button>
+            </form>
+        {% endif %}
 
         {% else %}
             {% if fitness_class.is_full %}
                 <p><strong>Class is full.</strong></p>
             {% else %}
-            <p><a href="/accounts/login/">Log in to book this class</a></p>
-            {% endif %}
-        {% endif %}        
+                <p><a href="/accounts/login/">Log in to book this class</a></p>
+        {% endif %}
+    {% endif %}        
 
         <p><a href="/classes/">Back to classes</a></p>
-    </body>
-</html>
+{% endblock %}
