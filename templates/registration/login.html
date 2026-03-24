@@ -4,6 +4,26 @@
         <title>Login</title>
     </head>
     <body>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/classes/">Classes</a>
+            <a href="/instructors/">Our Instructors</a>
+        
+            {% if user.is_authenticated %}
+                <a href="/my-bookings/">My Bookings</a>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+            <form method="post" action="/accounts/logout/">
+                {% csrf_token %}
+                <button type="submit">Log Out</button>
+            </form>
+            {% else %}
+                <a href="/accounts/login/">Log In</a>
+                <a href="/accounts/register/">Register</a>
+            {% endif %}
+        </nav>
+
         <h1>Login</h1>
 
         {% if form.errors %}
@@ -12,7 +32,7 @@
 
         <form method="post">
             {% csrf_token %}
-            {{ form.as.p }}
+            {{ form.as_p }}
             <button type="submit">Log in</button>
         </form>
 
