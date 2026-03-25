@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block body_class %}home-page{% endblock %}
+
 {% block title %}Elevate | Home{% endblock %}
 
 {% block content %}
@@ -7,33 +9,48 @@
         <div class="hero-overlay">
             <div class="hero-content">
                 {% if user.is_authenticated %}
-                    <h1>Welcome, {{ user.first_name|default:user.username }}</h1>
+                    <h1 class="hero-content-username">Welcome, {{ user.first_name|default:user.username }}</h1>
                 {% else %}
                     <h1>Welcome to Elevate</h1>
                     <div class="hero-content-links">
-                        <a href="/accounts/login/">Log In</a>
-                        <a href="/accounts/register/">Register</a>
+                        <a href="/accounts/login/" class="login">Log In</a>
+                        <a href="/accounts/register/" class="register">Register</a>
                     </div>
                 {% endif %}
             </div>
         </div>
     </section>
 
-    <section class="home-upcoming">
-        <div class="home-upcoming-container">
+    <section class="upcoming">
+        <div class="upcoming-container">
             <h2>Upcoming Classes</h2>
-            <p> this section will show the next classes</p>
+            <div class="class-cards">
+                {% for fitness_class in upcoming_classes %}
+                    <a href="{% url 'class_detail' fitness_class.id %}" class="class-card-link">
+                        <div class="class-card">
+                            <h3>
+                                {{ fitness_class.start_time|date:"l" }}<br>
+                                {{ fitness_class.start_time|date:"d.m." }}
+                            </h3>
+                            <p>{{ fitness_class.class_type.name}}</p>
+                            <p>{{ fitness_class.start_time|date:"H:i" }} - {{ fitness_class.end_time|date:"H:i" }}</p>
+                        </div>
+                    </a>
+                {% empty %}
+                    <p>No upcoming classes at the moment. Check back later!</p>
+                {% endfor %}
+            </div>
         </div>
     </section>
 
-    <section class="home-cta">
-        <div class="home-cta-container">
-            <a href="{% url 'classes_list' %}">All Upcoming Classes</a>
+    <section class="cta">
+        <div class="cta-container">
+            <a href="{% url 'classes_list' %}">All Upcoming Classes<i class="fa-solid fa-angle-right"></i></a>
         </div>
     </section>
 
-    <section class="home-banner">
-        <div class="home-banner-overlay">
+    <section class="banner">
+        <div class="banner-overlay">
             <h2>Elevate your everyday.</h2>
         </div>
     </section>

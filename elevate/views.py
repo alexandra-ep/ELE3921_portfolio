@@ -1,12 +1,19 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm
+from django.utils import timezone
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .models import FitnessClass, Instructor, Booking
 
 
 def home(request):
-    return render(request, "home.html")
+    upcoming_classes = FitnessClass.objects.filter(
+        start_time__gte=timezone.now()
+    ).order_by('start_time')[:3]
+
+    return render(request, 'home.html', {
+        'upcoming_classes': upcoming_classes
+    })
 
 
 def classes_list(request):

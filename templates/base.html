@@ -13,58 +13,60 @@
         </title>
     </head>
 
-    <body>
-        <header>
-            <nav>
-                <div class="nav-logo">
-                    <a href="{% url 'home' %}">ELEVATE</a>
+    <body class="{% block body_class %}{% endblock %}">
+        <div class="page-container">
+            <header>
+                <nav>
+                    <div class="nav-logo">
+                        <a href="{% url 'home' %}">ELEVATE</a>
+                    </div>
+                    <div class="nav-links">
+                        <a href="{% url 'home' %}">Home</a>
+                        <a href="{% url 'classes_list' %}">Classes</a>
+                        <a href="{% url 'instructors_list' %}">Our Instructors</a>
+
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'my_bookings' %}">My Bookings</a>
+                            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="logout">Log Out</button>
+                            </form>
+                        {% else %}
+                            <a href="{% url 'login' %}">Log In</a>
+                            <a href="{% url 'register' %}" class="nav-links-register">Register</a>
+                        {% endif %}
+                    </div>
+                </nav>
+            </header>
+
+            <main class="content">
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% block content %}
+                {% endblock %}
+            </main>
+
+            <footer class="footer">
+                <div class="footer-logo">
+                    <h2 class="footer-logo-icon">ELEVATE</h2>
                 </div>
-                <div class="nav-links">
-                    <a href="{% url 'home' %}">Home</a>
-                    <a href="{% url 'classes_list' %}">Classes</a>
-                    <a href="{% url 'instructors_list' %}">Our Instructors</a>
 
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'my_bookings' %}">My Bookings</a>
-                        <form action="{% url 'logout' %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit">Log Out</button>
-                        </form>
-                    {% else %}
-                        <a href="{% url 'login' %}">Log In</a>
-                        <a href="{% url 'register' %}" class="nav-links-register">Register</a>
-                    {% endif %}
+                <div class="footer-socials">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
-            </nav>
-        </header>
 
-        <main>
-            {% if messages %}
-                <ul>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-
-            {% block content %}
-            {% endblock %}
-        </main>
-
-        <footer class="footer">
-            <div class="footer-logo">
-                <h2 class="footer-logo-icon">ELEVATE</h2>
-            </div>
-
-            <div class="footer-socials">
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-            </div>
-
-            <div class="footer-copy">
-                <p>© 2026 Elevate. All rights reserved.</p>
-            </div>
-        </footer>
+                <div class="footer-copy">
+                    <p>© 2026 Elevate. All rights reserved.</p>
+                </div>
+            </footer>
+        </div>
     </body>
 </html>

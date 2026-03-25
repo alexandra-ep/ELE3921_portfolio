@@ -16,20 +16,39 @@ transparency-black: #000000
 /* MAIN SECTIONS */
 h1, h2, h3 {
     font-family: 'Horizon', sans-serif;
+    color: #1d323e;
 }
 
-body {
+html, body {
+    height: 100%;
     margin: 0;
     font-family: 'Montserrat', sans-serif;
     background-color: #efecec;
 }
 
+.page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+}
+
 header {
-    position: absolute;
     width: 100%;
     top: 0;
     left: 0;
     z-index: 10;
+}
+
+.home-page header {
+    position: absolute;
+}
+
+.default-page header {
+    position: relative;
 }
 
 nav {
@@ -71,6 +90,20 @@ nav a {
     font-weight: bold;
 }
 
+.logout {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #efecec;
+    color: #1d323e;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 6px 12px;
+    border: none;
+}
+
+.logout:hover {
+    background-color: #a8a2a2;
+}
+
 /* FOOTER */
 footer {
     background-color: #1d323e;
@@ -81,6 +114,7 @@ footer {
 
 .footer-logo h2 {
     font-family: 'Horizon', sans-serif;
+    color: #efecec;
     margin-bottom: 15px;
 }
 
@@ -105,6 +139,7 @@ footer {
 /* __________________________________________________________ */
 
 /* HOME PAGE */
+/* ______HERO */
 .hero {
     background-image: url("/static/images/hero.jpg");
     background-size: cover;
@@ -117,7 +152,7 @@ footer {
     background-color: rgba(0, 0, 0, 0.45);
     min-height: 500px;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     text-align: center;
     padding: 20px;
@@ -129,6 +164,10 @@ footer {
     font-family: 'Horizon', sans-serif;
 }
 
+.hero-content-username, .hero-content-links {
+    margin-bottom: 40px;
+}
+
 .hero-content-links a {
     color: #1d323e;
     padding: 6px 12px;
@@ -137,18 +176,210 @@ footer {
     border-radius: 5px;
     font-weight: bold;
     text-decoration: none;
+    font-size: 14px;
 }
 
-.home-cta-container {
-    width: 85%;
+.login:hover,
+.register:hover {
+    color: #a8a2a2;
+}
+
+/* ______UPCOMING CARDS */
+.upcoming {
+    padding: 50px 40px;
+}
+
+.upcoming-container {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 60px 0;
+}
+
+.upcoming-container h2 {
+    font-size: 26px;
+    margin-bottom: 30px;
+}
+
+.class-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.class-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.class-card {
+    background-color: #1d323e;
+    width: 280px;
+    border-radius: 5px;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.class-card {
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.class-card:hover {
+    transform: translateY(-4px);
+}
+
+.class-card h3, p {
+    color: #efecec;
+}
+
+.class-card p {
+    font-size: 14px;
+    margin: 8px 0px;
+}
+
+.cta {
+    padding: 0px 0px 50px 40px;
+}
+
+.cta-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cta-container a {
+    text-decoration: none;
+    font-family: 'Horizon', sans-serif;
+    color: #1d323e;
+}
+
+.cta-container a:hover {
+    color: #3e6780;
+}
+
+.cta-container a i {
+    padding-left: 10px;
+}
+
+/* ______BANNER */
+.banner {
+    background-image: url("/static/images/motivation.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 300px;
+    position: relative;
+}
+
+.banner-overlay {
+    background-color: rgba(0, 0, 0, 0.35);
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.banner-overlay h2 {
+    color: #efecec;
+    font-size: 22px;
+    font-family: 'Horizon', sans-serif;
 }
 
 /* INSTRUCTORS PAGE */
 
 /* CLASSES PAGE */
+.classes {
+    padding: 40px 40px;
+}
+
+.classes-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.classes-container h1 {
+    margin-bottom: 30px;
+    font-size: 30px;
+}
+
+.classes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.classes-card {
+    background-color: #1d323e;
+    border-radius: 8px;
+    padding: 30px 30px;
+}
+
+.classes-card-date h2 {
+    margin: 0 0 8px 0;
+    color: #efecec;
+    font-size: 20px;
+}
+
+.classes-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    gap: 40px;
+}
+
+.classes-card-left {
+    flex: 1;
+}
+
+.classes-card-middle {
+    flex: 1;
+}
+
+.classes-card-right {
+    width: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.classes-card-left p,
+.classes-card-middle p {
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+.classes-card-right a:hover {
+    background-color: #a8a2a2;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.details-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    background-color: #efecec;
+    color: #1d323e;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+/* Colour palette 
+background: #efecec
+primary color: #1d323e
+transparency-white: #ffffff
+transparency-black: #000000
+*/
 
 /* CLASS DETAIL PAGE */
 
