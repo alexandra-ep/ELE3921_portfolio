@@ -1,11 +1,159 @@
-header {
-    background-color: blue;
+/* Colour palette 
+background: #efecec
+primary color: #1d323e
+transparency-white: #ffffff
+transparency-black: #000000
+*/
+
+/* FONT FAMILY */
+@font-face {
+    font-family: 'Horizon';
+    src: url('/static/fonts/Horizon.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* MAIN SECTIONS */
+h1, h2, h3 {
+    font-family: 'Horizon', sans-serif;
 }
 
 body {
-    background-color: white;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #efecec;
 }
 
-footer {
-    background-color: blue;
+header {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
 }
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+nav a {
+    text-decoration: none;
+    color: #efecec;
+    font-size: 14px;
+}
+
+.nav-logo a {
+    font-family: 'Horizon', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #efecec;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-links a:hover {
+    color: #a8a2a2;
+}
+
+.nav-links-register {
+    background-color: #efecec;
+    color: #1d323e;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* FOOTER */
+footer {
+    background-color: #1d323e;
+    color: #efecec;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.footer-logo h2 {
+    font-family: 'Horizon', sans-serif;
+    margin-bottom: 15px;
+}
+
+.footer-socials {
+    margin-bottom: 15px;
+}
+
+.footer-socials a {
+    color: #efecec;
+    margin: 0 10px;
+    font-size: 20px;
+}
+
+.footer-socials a:hover {
+    color: #a8a2a2;
+}
+
+.footer-copy p {
+    font-size: 12px;
+    opacity: 0.8;
+}
+/* __________________________________________________________ */
+
+/* HOME PAGE */
+.hero {
+    background-image: url("/static/images/hero.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+    position: relative;
+}
+
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.45);
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero-content h1 {
+    color: #efecec;
+    font-size: 30px;
+    font-family: 'Horizon', sans-serif;
+}
+
+.hero-content-links a {
+    color: #1d323e;
+    padding: 6px 12px;
+    margin: 5px;
+    background-color: #efecec;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.home-cta-container {
+    width: 85%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 0;
+}
+
+/* INSTRUCTORS PAGE */
+
+/* CLASSES PAGE */
+
+/* CLASS DETAIL PAGE */
+
+/* MY BOOKINGS PAGE */
+
+/* LOGIN PAGE */
+
+/* REGISTER PAGE */
