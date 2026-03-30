@@ -41,11 +41,11 @@
 
             <main class="content">
                 {% if messages %}
-                    <ul>
-                        {% for message in messages %}
-                            <li>{{ message }}</li>
+                    <div class="messages-container">
+                        {% for message in messages%}
+                        <div class="message {{ message.tags }}">{{ message }}</div>
                         {% endfor %}
-                    </ul>
+                    </div>
                 {% endif %}
 
                 {% block content %}

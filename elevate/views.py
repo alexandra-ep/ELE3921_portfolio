@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import FitnessClass, Instructor, Booking, ClassCategory, Location
 
 
@@ -101,12 +102,20 @@ def book_class(request, class_id):
         user=request.user,
         fitness_class=fitness_class
     ).exists()
-    
-    if not existing_booking and not fitness_class.is_full():
+
+    if existing_booking:
+        messages.warning(request, "You have already booked this class.")
+
+    elif fitness_class.is_full():
+        messages.warning(request, "Sorry, this class is full.")
+
+    else:
         Booking.objects.create(
             user=request.user,
             fitness_class=fitness_class
         )
+        messages.success(request, "Your class has been booked successfully.")
+    
 
     return redirect("class_detail", class_id=fitness_class.id)
 
@@ -122,6 +131,9 @@ def cancel_booking(request, class_id):
 
     if booking:
         booking.delete()
+        messages.success(request, "Your booking has been cancelled.")
+    else:
+        messages.warning(request, "No booking was found for this class.")
 
     return redirect("class_detail", class_id=fitness_class.id)
 

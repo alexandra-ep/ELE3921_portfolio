@@ -138,6 +138,38 @@ footer {
 }
 /* __________________________________________________________ */
 
+/* MESSAGES/CONFIRMATIONS */
+.messages-container {
+    max-width: 1200px;
+    margin: 20px auto 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.message {
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.message.success {
+    background-color: #4f7f5d;
+    color: #f3eeee;
+}
+
+.message.warning {
+    background-color: #5e4801;
+    color: #f3eeee;
+}
+
+.message.error {
+    background-color: #63161c;
+    color: #f3eeee;
+}
+/* __________________________________________________________ */
+
 /* HOME PAGE */
 /* ______HERO */
 .hero {
@@ -286,8 +318,11 @@ footer {
     font-size: 22px;
     font-family: 'Horizon', sans-serif;
 }
+/* __________________________________________________________ */
 
 /* INSTRUCTORS PAGE */
+
+/* __________________________________________________________ */
 
 /* CLASSES PAGE */
 .classes {
@@ -302,9 +337,10 @@ footer {
 
 .classes-container h1 {
     margin-bottom: 30px;
-    font-size: 30px;
+    font-size: 28px;
 }
 
+/* ______FILTER */
 .classes-filter-form {
     display: flex;
     align-items: center;
@@ -318,7 +354,7 @@ footer {
     min-width: 160px;
     padding: 0 12px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     background: white;
     font-size: 14px;
     font-family: 'Montserrat', sans-serif;
@@ -329,7 +365,7 @@ footer {
     height: 42px;
     padding: 0 18px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     background-color: #1d323e;
     color: #efecec;
     font-size: 14px;
@@ -344,7 +380,9 @@ footer {
     font-weight: bold;
     text-decoration: none;
 }
+/* __________________________________________________________ */
 
+/* ______CLASSES CARDS */
 .classes-list {
     display: flex;
     flex-direction: column;
@@ -353,7 +391,7 @@ footer {
 
 .classes-card {
     background-color: #1d323e;
-    border-radius: 8px;
+    border-radius: 5px;
     padding: 30px 30px;
 }
 
@@ -447,7 +485,159 @@ footer {
     border: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+/* __________________________________________________________ */
 
+/* CLASS DETAIL PAGE */
+.class-details {
+    padding: 40px 40px;
+}
+
+.class-details-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ______CLASS DETAIL CARD */
+.class-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.class-details-header h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.class-details-header-right {
+    display: flex;
+    gap: 40px;
+    font-size: 20px;
+    font-family: 'Horizon', sans-serif;
+    color: #1d323e;
+}
+
+.class-details-card {
+    background-color: #1d323e;
+    border-radius: 5px;
+    padding: 30px 30px;
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.class-details-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.class-details-left,
+.class-details-right {
+    flex: 1 1 300px;
+    color: #efecec;
+    font-size: 14px;
+    margin: 0 0 20px 0;
+}
+
+.class-details-description {
+    max-width: 480px;
+}
+
+.class-details-link a {
+    text-decoration: none;
+    color: #1d323e;
+    font-family: 'Horizon', sans-serif;
+}
+
+.class-details-link a i {
+    padding-left: 10px;
+}
+
+.booking-message {
+    margin: 25px 0 15px 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.book-detail-btn,
+.cancel-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease;
+}
+
+.book-detail-btn {
+    background-color: #935122;
+    color: #efecec;
+}
+
+.book-detail-btn:hover {
+    background-color: #b06d3e;
+}
+
+.cancel-btn {
+    background-color: #932238;
+    color: #efecec;
+}
+
+.cancel-btn:hover {
+    background-color: #c03954;
+}
+
+/* ______ */
+
+/* ______CLASS DETAIL BANNER */
+.details-hero{
+    background-image: url("/static/images/details.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 200px;
+    position: relative;
+}
+
+.details-hero-overlay {
+    background-color: rgba(0, 0, 0, 0.55);
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.details-hero-overlay a {
+    font-family: 'Horizon', sans-serif;
+    color: #efecec;
+    font-size: 22px;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.details-hero-overlay a:hover {
+    opacity: 0.7;
+}
+
+.details-hero-overlay a i{
+    padding-left: 10px;
+}
+/* __________________________________________________________ */
 
 /* Colour palette 
 background: #efecec
@@ -455,13 +645,14 @@ primary color: #1d323e
 transparency-white: #ffffff
 transparency-black: #000000
 */
-
-/* CLASS DETAIL PAGE */
-
 /* MY BOOKINGS PAGE */
+/* __________________________________________________________ */
 
 /* LOGIN PAGE */
+/* __________________________________________________________ */
 
 /* REGISTER PAGE */
+/* __________________________________________________________ */
 
 /* RESPONSIVE DESIGN */
+/* __________________________________________________________ */
