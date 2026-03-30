@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from .models import FitnessClass, Instructor, Booking
+from .models import FitnessClass, Instructor, Booking, ClassCategory, Location
 
 
 def home(request):
@@ -18,8 +18,35 @@ def home(request):
 
 def classes_list(request):
     classes = FitnessClass.objects.all().order_by("start_time")
-    return render(request, "classes_list.html", {"classes": classes})
 
+    categories = ClassCategory.objects.all().order_by("name")
+    locations = Location.objects.all().order_by("name")
+
+    selected_category = request.GET.get("category")
+    selected_location = request.GET.get("location")
+
+    if selected_category:
+        classes = classes.filter(class_type__category_id=selected_category)
+    
+    if selected_location:
+        classes = classes.filter(location_id=selected_location)
+
+    booked_class_ids = []
+
+    if request.user.is_authenticated:
+        booked_class_ids = Booking.objects.filter(
+            user=request.user,
+            status="active"
+        ).values_list("fitness_class_id", flat=True)
+
+    return render(request, "classes_list.html", {
+        "classes": classes,
+        "booked_class_ids": booked_class_ids,
+        "categories": categories,
+        "locations": locations,
+        "selected_category": selected_category,
+        "selected_location": selected_location,
+})
 
 def instructors_list(request):
     instructors = Instructor.objects.all().order_by("last_name")

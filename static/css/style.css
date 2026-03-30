@@ -305,6 +305,46 @@ footer {
     font-size: 30px;
 }
 
+.classes-filter-form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.filter-select {
+    height: 42px;
+    min-width: 160px;
+    padding: 0 12px;
+    border: none;
+    border-radius: 4px;
+    background: white;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+}
+
+.filter-btn {
+    height: 42px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 4px;
+    background-color: #1d323e;
+    color: #efecec;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+}
+
+.clear-filter-btn {
+    color: #1d323e;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 .classes-list {
     display: flex;
     flex-direction: column;
@@ -339,11 +379,16 @@ footer {
 }
 
 .classes-card-right {
-    width: 140px;
+    width: 240px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+    gap: 15px;
     flex-shrink: 0;
+}
+
+.classes-card-right form {
+    margin: 0;
 }
 
 .classes-card-left p,
@@ -358,18 +403,48 @@ footer {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
+.book-btn:hover,
+.booked-btn:hover,
+.full-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
 .details-btn {
+    background-color: #efecec;
+    color: #1d323e;
+}
+
+.book-btn {
+    background-color: #935122;
+    color: #efecec;
+}
+
+.booked-btn {
+    background-color: #1b6d64;
+    color: #efecec;
+}
+
+.full-btn {
+    background-color: #932238;
+    color: #efecec;
+}
+
+.book-btn,
+.details-btn,
+.booked-btn,
+.full-btn {
     display: inline-flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    background-color: #efecec;
-    color: #1d323e;
     padding: 12px 20px;
     border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     font-size: 14px;
     box-sizing: border-box;
+    border: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -388,3 +463,5 @@ transparency-black: #000000
 /* LOGIN PAGE */
 
 /* REGISTER PAGE */
+
+/* RESPONSIVE DESIGN */

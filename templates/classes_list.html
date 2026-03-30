@@ -9,6 +9,32 @@
         <div class="classes-container">
             <h1>Upcoming Classes</h1>
 
+            <form method="get" class="classes-filter-form">
+                <select name="category" class="filter-select">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}"
+                            {% if selected_category == category.id|stringformat:"s" %}selected{% endif %}>
+                            {{ category.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <select name="location" class="filter-select">
+                    <option value="">All Locations</option>
+                    {% for location in locations %}
+                        <option value="{{ location.id }}"
+                            {% if selected_location == location.id|stringformat:"s" %}selected{% endif %}>
+                            {{ location.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit" class="filter-btn">Filter</button>
+
+                <a href="{% url 'classes_list' %}" class="clear-filter-btn">Clear</a>
+            </form>
+
             {% if classes %}
                 <div class="classes-list">
                     {% for fitness_class in classes %}
@@ -29,6 +55,21 @@
                                 </div>
 
                                 <div class="classes-card-right">
+                                    {% if user.is_authenticated %}
+                                        {% if fitness_class.id in booked_class_ids %}
+                                            <span class="booked-btn">Booked</span>
+                                        {% elif fitness_class.is_full %}
+                                            <span class="full-btn">Full</span>
+                                        {% else %}
+                                            <form action="{% url 'book_class' fitness_class.id %}" method="post">
+                                                {% csrf_token %}
+                                                <button type="submit" class="book-btn">Book</button>
+                                            </form>
+                                        {% endif %}
+                                    {% else %}
+                                         <a href="{% url 'login' %}" class="book-btn">Log In</a>
+                                    {% endif %}
+
                                     <a href="{% url 'class_detail' fitness_class.id %}" class="details-btn">Details</a>
                                 </div>
                             </div>
