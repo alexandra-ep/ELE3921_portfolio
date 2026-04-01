@@ -14,6 +14,12 @@ transparency-black: #000000
 }
 
 /* MAIN SECTIONS */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 h1, h2, h3 {
     font-family: 'Horizon', sans-serif;
     color: #1d323e;
@@ -152,8 +158,7 @@ footer {
 /* MESSAGES/CONFIRMATIONS */
 .messages-container {
     max-width: 1200px;
-    margin: 20px auto 0 auto;
-    padding: 0 40px;
+    margin: 50px auto 0 auto;
     box-sizing: border-box;
 }
 
@@ -187,14 +192,14 @@ footer {
     background-image: url("/static/images/hero.jpg");
     background-size: cover;
     background-position: center;
-    min-height: 500px;
+    min-height: 600px;
     position: relative;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
 .hero-overlay {
     background-color: rgba(0, 0, 0, 0.45);
-    min-height: 500px;
+    min-height: 600px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -337,7 +342,8 @@ footer {
 
 /* INSTRUCTORS PAGE */
 .instructors {
-    padding: 40px 40px;
+    padding: 60px 40px;
+    margin-bottom: 50px;
 }
 
 .instructors-container {
@@ -421,7 +427,7 @@ footer {
 
 /* CLASSES PAGE */
 .classes {
-    padding: 40px 40px;
+    padding: 50px 40px;
 }
 
 .classes-container {
@@ -484,6 +490,7 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin-bottom: 50px;
 }
 
 .classes-card {
@@ -588,7 +595,7 @@ footer {
 
 /* CLASS DETAIL PAGE */
 .class-details {
-    padding: 40px 40px;
+    padding: 60px 40px;
 }
 
 .class-details-container {
@@ -608,7 +615,7 @@ footer {
 
 .class-details-header h1 {
     margin: 0;
-    font-size: 22px;
+    font-size: 24px;
 }
 
 .class-details-header-right {
@@ -740,19 +747,225 @@ footer {
 }
 /* __________________________________________________________ */
 
+/* MY BOOKINGS PAGE */
+/* __________________________________________________________ */
+
+/* LOGIN PAGE */
+.auth-page {
+    overflow: hidden;
+}
+
+.auth-page header,
+.auth-page footer,
+.register-page header,
+.register-page footer {
+    display: none;
+}
+
+.auth-page .page-container {
+    height: 100vh;
+    min-height: 100vh;
+}
+
+.auth-page .content {
+    height: 100vh;
+    padding: 0;
+    flex: none;
+}
+
+.auth-section {
+    height: 100vh;
+}
+
+.auth-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+    min-height: 0;
+}
+
+.auth-image {
+    height: 100vh;
+}
+
+.auth-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.auth-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 60px;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.auth-form-box {
+    width: 100%;
+    max-width: 560px;
+}
+
+.auth-form-box h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.auth-error {
+    margin-bottom: 20px;
+    color: #1d323e;
+    font-size: 12px;
+    font-weight: bold;
+    border: 2px solid #1d323e;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.auth-error i {
+    margin-right: 8px;
+}
+
+.auth-form-element {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.auth-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-field label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #1d323e;
+}
+
+.auth-field input {
+    background: white;
+    width: 100%;
+    height: 40px;
+    border: 3px solid #1d323e;
+    border-radius: 5px;
+    padding: 0 18px;
+    font-size: 14px;
+    color: #1d323e;
+}
+
+.auth-field input:focus {
+    outline: none;
+}
+
+.auth-btn {
+    width: 100%;
+    height: 46px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1d323e;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
+    color: #efecec;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.auth-link {
+    display: inline-block;
+    margin-top: 120px;
+    font-size: 16px;
+    font-family: 'Horizon', sans-serif;
+    color: #1d323e;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.auth-link i {
+    margin-left: 8px;
+}
+
+.auth-link:hover {
+    opacity: 0.65;
+}
+
+/* __________________________________________________________ */
+
+/* REGISTER PAGE */
+.register-page {
+    overflow: hidden;
+}
+
+.register-page .page-container {
+    height: 100vh;
+}
+
+.register-page .content {
+    height: 100vh;
+    padding: 0;
+}
+
+.register-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+}
+
+.register-image {
+    height: 100vh;
+}
+
+.register-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.register-form {
+    height: 100vh;
+    overflow-y: auto;
+    padding: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.register-form-box {
+    width: 100%;
+    max-width: 520px;
+}
+
+.register-form-element {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.auth-help-text {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+
 /* Colour palette 
 background: #efecec
 primary color: #1d323e
 transparency-white: #ffffff
 transparency-black: #000000
 */
-/* MY BOOKINGS PAGE */
-/* __________________________________________________________ */
-
-/* LOGIN PAGE */
-/* __________________________________________________________ */
-
-/* REGISTER PAGE */
 /* __________________________________________________________ */
 
 /* RESPONSIVE DESIGN */

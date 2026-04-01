@@ -1,25 +1,59 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block body_class %}default-page{% endblock %}
+{% block body_class %}register-page{% endblock %}
 
 {% block title %}Elevate | Register{% endblock %}
 
 {% block content %}
-    <h1>Create an account</h1>
+    <section class="register-section">
+        <div class="register-container">
 
-    <form method="post">
-        {% csrf_token %}
-        <p>
-            First name:<br>
-            <input type="text" name="first_name" required>
-        </p>
-        <p>
-            Last name:<br>
-            <input type="text" name="last_name" required>
-        </p>
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+            <div class="register-image">
+                <img src="{% static 'images/login.jpg' %}" alt="Gym dumbbells">
+            </div>
 
-    <p><a href="/accounts/login/">Already have an account? Log in</a></p>
+            <div class="register-form">
+                <div class="register-form-box">
+                    <h1>Create Account</h1>
+
+                    <form method="post" class="register-form-element">
+                        {% csrf_token %}
+                        <div class="auth-field">
+                            <label>First Name:</label>
+                            <input type="text" name="first_name" required>
+                        </div>
+
+                        <div class="auth-field">
+                            <label>Last Name:</label>
+                            <input type="text" name="last_name" required>
+                        </div>
+
+                        {% for field in form %}
+                            {% if field.name != 'first_name' and field.name != 'last_name' %}
+                                <div class="auth-field">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                                    {{ field }}
+
+                                    {% if field.help_text %}
+                                    <div class="auth-help-text">{{ field.help_text|safe }}</div>
+                                    {% endif %}
+
+                                    {% if field.errors %}
+                                        <div class="auth-error">{{ field.errors }}</div>
+                                    {% endif %}
+
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        <button type="submit" class="auth-btn">Register</button>
+                    </form>
+
+                    <a href="{% url 'login' %}" class="auth-link">Already have an account? Log in<i class="fa-solid fa-angle-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </section>
 {% endblock %}
