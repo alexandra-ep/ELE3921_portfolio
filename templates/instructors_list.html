@@ -5,19 +5,39 @@
 {% block title %}Elevate | Our Instructors{% endblock %}
 
 {% block content %}
-    <h1>Our Instructors</h1>
+    <section class="instructors">
+        <div class="instructors-container">
+            <h1>Our Instructors</h1>
 
-    {% if instructors %}
-        <ul>
-            {% for instructor in instructors %}
-                <li>
-                    <strong>{{ instructor.first_name }} {{ instructor.last_name }}</strong><br>
-                    Bio: {{ instructor.bio }}
-                </li>
-                <br>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No instructors available.</p>
-    {% endif %}
+            {% if instructors%}
+                <div class="instructors-grid">
+                    {% for instructor in instructors %}
+                        <div class="instructor-card">
+                            
+                            <div class="instructor-image-wrapper">
+                                {% if instructor.image %}
+                                    <img src="{{ instructor.image.url }}" alt="{{ instructor.first_name }} {{ instructor.last_name }}" class="instructor-image">
+                                {% else %}
+                                    <div class="instructor-image-placeholder"></div>
+                                {% endif %}
+                            </div>
+
+                            <h2 class="instructor-name">{{ instructor.first_name }} {{ instructor.last_name }}</h2>
+
+                            {% if instructor.email %}
+                                <p class="instructor-email"><strong>E-mail:</strong> {{ instructor.email }}</p>
+                            {% endif %}
+
+                            {% if instructor.bio %}
+                                <p class="instructor-bio">{{ instructor.bio }}</p>
+                            {% endif %}
+
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="no-instructors">No instructors available.</p>
+            {% endif %}
+        </div>
+    </section>
 {% endblock %}

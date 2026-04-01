@@ -11,7 +11,7 @@ from .models import (
 
 @admin.register(Instructor)
 class InstructorAdmin(admin.ModelAdmin):
-    list_display = ("first_name", "last_name")
+    list_display = ("first_name", "last_name", "email")
 
 @admin.register(ClassCategory)
 class ClassCategoryAdmin(admin.ModelAdmin):
@@ -42,3 +42,4 @@ class BookingAdmin(admin.ModelAdmin):
     list_display = ("user", "fitness_class", "status", "created_at")
     list_filter = ("status",)
     search_fields = ("user__username",)
+
