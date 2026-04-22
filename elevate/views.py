@@ -140,7 +140,10 @@ def cancel_booking(request, class_id):
 
 @login_required
 def my_bookings(request):
-    bookings = Booking.objects.filter(user=request.user).select_related(
+    bookings = Booking.objects.filter(
+        user=request.user,
+        fitness_class__start_time__gte=timezone.now()
+    ).select_related(
         "fitness_class",
         "fitness_class__class_type",
         "fitness_class__instructor",

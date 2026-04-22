@@ -5,27 +5,51 @@
 {% block title %}Elevate | My Bookings{% endblock %}
 
 {% block content %}
-    <h1>My Bookings</h1>
-    {% if bookings %}
-        <ul>
-            {% for booking in bookings %}
-                <li>
-                    <strong>
-                        <a href="/classes/{{  booking.fitness_class.id }}/">
-                            {{ booking.fitness_class.class_type.name }}
-                        </a>
-                    </strong><br>
-                    Instructor: {{ booking.fitness_class.instructor }}<br>
-                    Location: {{ booking.fitness_class.location }}<br>
-                    Time: {{  booking.fitness_class.start_time|date:"d/m/y H:i" }} - {{ booking.fitness_class.end_time|date:"H:i" }}<br>
-                    Status: {{ booking.status }}
-                </li>
-                <br>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>You do not have any bookings yet.</p>
-    {% endif %}
+    <section class="bookings">
+        <div class="bookings-container">
+            <h1>My bookings</h1>
 
-    <p><a href="/">Back to home</a></p>
+            {% if bookings %}
+                <p class="bookings-msg">Here you can see your upcoming classes and manage your bookings.</p>
+                
+                <div class="bookings-list">
+                    {% for booking in bookings %}
+                        <div class="bookings-card">
+
+                            <div class="bookings-card-left">
+                                <h2>{{ booking.fitness_class.start_time|date:"l d.m." }}</h2>
+                                <p>{{ booking.fitness_class.class_type.name }}</p>
+                                <p>{{ booking.fitness_class.start_time|date:"H:i" }} - {{ booking.fitness_class.end_time|date:"H:i" }}</p>
+                            </div>
+
+                            <div class="bookings-card-middle">
+                                <p><strong>Instructor:</strong> {{ booking.fitness_class.instructor }}</p>
+                                <p><strong>Location:</strong> {{ booking.fitness_class.location }}</p>
+                            </div>
+
+                            <div class="bookings-card-right">
+                                <form method="post" action="{% url 'cancel_booking' booking.fitness_class.id %}" onsubmit="return confirm('Are you sure you want to cancel this booking?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="bookings-cancel-btn">Cancel</button>
+                                </form>
+
+                                <a href="{% url 'class_detail' booking.fitness_class.id %}" class="bookings-details-btn">
+                                    Details
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            {% else %}
+                <p class="bookings-msg">You have no upcoming bookings yet.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="bookings-hero">
+        <div class="bookings-hero-overlay">
+            <a href="{% url 'classes_list' %}">Browse classes<i class="fa-solid fa-angle-right"></i></a>
+        </div>
+    </section>
 {% endblock %}
