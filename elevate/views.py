@@ -116,8 +116,12 @@ def book_class(request, class_id):
         )
         messages.success(request, "Your class has been booked successfully.")
     
+    next_page = request.POST.get("next")
 
-    return redirect("class_detail", class_id=fitness_class.id)
+    if next_page == "class_detail":
+        return redirect("class_detail", class_id=fitness_class.id)
+
+    return redirect("classes_list")
 
 
 @login_required
@@ -134,6 +138,14 @@ def cancel_booking(request, class_id):
         messages.success(request, "Your booking has been cancelled.")
     else:
         messages.warning(request, "No booking was found for this class.")
+
+    next_page = request.POST.get("next")
+
+    if next_page == "my_bookings":
+        return redirect("my_bookings")
+    
+    if next_page == "class_detail":
+        return redirect("class_detail", class_id=fitness_class.id)
 
     return redirect("class_detail", class_id=fitness_class.id)
 

@@ -39,6 +39,7 @@
                 <div class="classes-list">
                     {% for fitness_class in classes %}
                         <div class="classes-card">
+
                             <div class="classes-card-date">
                                 <h2>{{ fitness_class.start_time|date:"l" }} {{ fitness_class.start_time|date:"d.m." }}</h2>
                             </div>
@@ -63,6 +64,7 @@
                                         {% else %}
                                             <form action="{% url 'book_class' fitness_class.id %}" method="post">
                                                 {% csrf_token %}
+                                                <input type="hidden" name="next" value="classes_list">
                                                 <button type="submit" class="book-btn">Book</button>
                                             </form>
                                         {% endif %}
@@ -73,6 +75,7 @@
                                     <a href="{% url 'class_detail' fitness_class.id %}" class="details-btn">Details</a>
                                 </div>
                             </div>
+                            
                         </div>  
                     {% endfor %}
                 </div>

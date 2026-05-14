@@ -16,26 +16,32 @@
                     {% for booking in bookings %}
                         <div class="bookings-card">
 
-                            <div class="bookings-card-left">
+                            <div class="bookings-card-date">
                                 <h2>{{ booking.fitness_class.start_time|date:"l d.m." }}</h2>
-                                <p>{{ booking.fitness_class.class_type.name }}</p>
-                                <p>{{ booking.fitness_class.start_time|date:"H:i" }} - {{ booking.fitness_class.end_time|date:"H:i" }}</p>
                             </div>
 
-                            <div class="bookings-card-middle">
-                                <p><strong>Instructor:</strong> {{ booking.fitness_class.instructor }}</p>
-                                <p><strong>Location:</strong> {{ booking.fitness_class.location }}</p>
-                            </div>
+                            <div class="bookings-card-content">
+                                <div class="bookings-card-left">
+                                    <p>{{ booking.fitness_class.class_type.name }}</p>
+                                    <p>{{ booking.fitness_class.start_time|date:"H:i" }} - {{ booking.fitness_class.end_time|date:"H:i" }}</p>
+                                </div>
 
-                            <div class="bookings-card-right">
-                                <form method="post" action="{% url 'cancel_booking' booking.fitness_class.id %}" onsubmit="return confirm('Are you sure you want to cancel this booking?');">
-                                    {% csrf_token %}
-                                    <button type="submit" class="bookings-cancel-btn">Cancel</button>
-                                </form>
+                                <div class="bookings-card-middle">
+                                    <p><strong>Instructor:</strong> {{ booking.fitness_class.instructor }}</p>
+                                    <p><strong>Location:</strong> {{ booking.fitness_class.location }}</p>
+                                </div>
 
-                                <a href="{% url 'class_detail' booking.fitness_class.id %}" class="bookings-details-btn">
-                                    Details
-                                </a>
+                                <div class="bookings-card-right">
+                                    <form method="post" action="{% url 'cancel_booking' booking.fitness_class.id %}" onsubmit="return confirm('Are you sure you want to cancel this booking?');">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="next" value="my_bookings">
+                                        <button type="submit" class="bookings-cancel-btn">Cancel</button>
+                                    </form>
+
+                                    <a href="{% url 'class_detail' booking.fitness_class.id %}" class="bookings-details-btn">
+                                        Details
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
