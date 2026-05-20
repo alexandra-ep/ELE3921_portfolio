@@ -20,6 +20,13 @@
                     <div class="nav-logo">
                         <a href="{% url 'home' %}">ELEVATE</a>
                     </div>
+
+                    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+                        
+                    <label for="nav-toggle" class="nav-toggle-label">
+                        <i class="fa-solid fa-bars"></i>
+                    </label>
+
                     <div class="nav-links">
                         <a href="{% url 'home' %}" class="nav-link">Home</a>
                         <a href="{% url 'classes_list' %}" class="nav-link">Classes</a>
@@ -27,13 +34,14 @@
 
                         {% if user.is_authenticated %}
                             <a href="{% url 'my_bookings' %}" class="nav-link">My Bookings</a>
-                            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+
+                            <form action="{% url 'logout' %}" method="post">
                                 {% csrf_token %}
                                 <button type="submit" class="logout">Log Out</button>
                             </form>
                         {% else %}
                             <a href="{% url 'login' %}" class="nav-link">Log In</a>
-                            <a href="{% url 'register' %}" class="nav-links-register">Register</a>
+                            <a href="{% url 'register' %}" class="nav-link">Register</a>
                         {% endif %}
                     </div>
                 </nav>

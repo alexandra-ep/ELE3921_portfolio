@@ -62,7 +62,7 @@ header {
     flex-direction: column;
 }
 
-.bookings.page .bookings {
+.bookings-page .bookings {
     flex: 0 0 auto;
 }
 
@@ -73,6 +73,21 @@ header {
 .default-page nav,
 .bookings-page nav {
     background: rgba(2, 44, 69, 0.65);
+}
+
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    display: none;
+    color: #efecec;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.nav-links form {
+    margin: 0;
 }
 
 nav {
@@ -218,7 +233,7 @@ footer {
 }
 
 .hero-overlay {
-    background-color: rgba(0, 0, 0, 0.45);
+    background-color: rgba(0, 0, 0, 0.6);
     min-height: 600px;
     display: flex;
     align-items: flex-end;
@@ -302,7 +317,8 @@ footer {
     transform: translateY(-4px);
 }
 
-.class-card h3, p {
+.class-card h3, 
+.class-card p {
     color: #efecec;
 }
 
@@ -445,6 +461,7 @@ footer {
 }
 
 .classes-card-content {
+    color: #efecec;
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -620,6 +637,7 @@ footer {
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
     padding: 10px 20px;
     margin-top: 10px;
     border: none;
@@ -822,6 +840,7 @@ footer {
 }
 
 .bookings-card-content {
+    color: #efecec;
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -899,7 +918,7 @@ footer {
 /* ______ */
 
 /* ______BOOKINGS DETAIL BANNER */
-.bookings-hero{
+.bookings-hero {
     background-image: url("/static/images/bookings.jpg");
     background-size: cover;
     background-position: center;
@@ -912,7 +931,6 @@ footer {
     position: absolute;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.75);
-    min-height: 250px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1150,4 +1168,318 @@ footer {
 /* __________________________________________________________ */
 
 /* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .messages-container {
+        margin: 20px 20px 0;
+        font-size: 12px;
+    }
+
+    /*____ NAV BAR ____*/
+    nav {
+        padding: 20px 24px;
+        position: relative;
+    }
+
+    .nav-logo a {
+        font-size: 20px;
+    }
+
+    .nav-toggle-label {
+        display: block;
+        z-index: 20;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.45);
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 20px 20px;
+        display: none;
+        z-index: 15;
+    }
+
+    .nav-toggle:checked ~ .nav-links {
+        display: flex;
+    }
+
+    .nav-link,
+    .nav-links-register,
+    .logout {
+        font-size: 14px;
+        background-color: rgba(0, 0, 0, 0.45);
+        padding: 10px 15px;
+    }
+
+    .nav-links-register,
+    .logout {
+        width: 140px;
+        text-align: center;
+    }
+
+    /*____ HOME ____*/
+    .hero {
+        min-height: 590px;
+        background-position: center;
+    }
+
+    .hero-overlay {
+        min-height: 590px;
+        align-items: flex-end;
+    }
+
+    .hero-content h1 {
+        font-size: 24px;
+        max-width:fit-content;
+        padding-bottom: 10px;
+    }
+
+    .login,
+    .register {
+        display: inline-flex;
+        justify-content: center;
+        min-width: 95px;
+        font-size: 14px;
+        padding: 8px 14px;
+    }
+
+    .upcoming {
+        padding: 60px 25px 40px;
+    }
+
+    .upcoming-container h2 {
+        font-size: 24px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .class-cards {
+        gap: 30px;
+    }
+
+    .class-card {
+        padding: 35px 20px;
+    }
+
+    .cta {
+        text-align: center;
+        padding: 0 0 40px 0;
+    }
+
+    .banner {
+        background-position: center;
+    }
+
+
+    /*____ CLASSES ____*/
+    .classes {
+        padding: 40px 25px;
+        margin-bottom: 0;
+    }
+
+    .classes-container h1 {
+        font-size: 20px;
+        margin-bottom: 25px;
+    }
+
+    .classes-filter-form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin-bottom: 30px;
+    }
+
+    .filter-select,
+    .filter-btn {
+        width: 100%;
+        height: 44px;
+        font-size: 14px;
+    }
+
+    .clear-filter-btn {
+        display: inline-block;
+        text-align: center;
+        margin-top: 4px;
+        font-size: 14px;
+    }
+
+    .classes-card-date h2 {
+        font-size: 18px;
+        margin-bottom: 18px;
+    }
+
+    .classes-card-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .classes-card-left,
+    .classes-card-middle {
+        width: 100%;
+    }
+
+    .classse-card-left p,
+    .classes-card-middle p {
+        margin: 6px 0;
+        font-size: 14px;
+    }
+
+    .classes-card-right {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .classes-card-right form {
+        flex: 1;
+    }
+
+    .book-btn,
+    .details-btn,
+    .booked-btn,
+    .full-btn {
+        width: 100%;
+        min-height: 42px;
+        font-size: 14px;
+    }
+
+    .classes-card-right > a,
+    .classes-card-right > span,
+    .classes-card-right form {
+        flex: 1;
+    }
+
+
+    /*____ CLASS DETAIL ____*/
+    .class-details {
+        padding: 40px 25px;
+        margin-bottom: 0;
+    }
+
+    .class-details-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .class-details-header h1,
+    .class-details-header span {
+        font-size: 18px;
+        margin: 0;
+        max-width: 100%;
+    }
+
+    .class-details-header-right {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .class-details-card {
+        flex-direction: column;
+        gap: 10px;
+        padding: 30px 25px;
+    }
+
+    .class-details-left,
+    .class-details-right {
+        flex: none;
+        width: 100%;
+        margin: 0;
+    }
+
+   .class-details-description {
+        max-width: 100%;
+        margin-top: 10px;
+    }
+
+    .booking-message {
+        margin: 25px 0 15px 0;
+        font-size: 15px;
+        line-height: 1.4;
+    }
+
+    .book-detail-btn,
+    .cancel-btn {
+        width: 100%;
+        min-height: 44px;
+        justify-content: center;
+    }
+
+    .details-hero {
+        background-position: center;
+    }
+
+    .details-hero-overlay {
+        padding: 20px;
+    }
+
+    .details-hero-overlay a {
+        font-size: 18px;
+    }
+
+
+    /*____ INSTRUCTORS ____*/
+    .instructors {
+        padding: 40px 25px;
+        margin-bottom: 0;
+    }
+
+    .instructors-container h1 {
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+    .instructors-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .instructor-card {
+        padding: 30px 24px;
+        width: 100%;
+    }
+
+    .instructor-image-wrapper {
+        width: 170px;
+        height: 170px;
+        margin-bottom: 25px;
+    }
+
+    .instructor-name {
+        margin-bottom: 14px;
+    }
+
+    .instructor-email {
+        margin-bottom: 22px;
+        word-break: break-word;
+    }
+
+    .instructor-bio {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+
+    /*____ MY BOOKINGS ____*/
+
+    
+
+    /*____ LOGIN ____*/
+
+
+    /*____ REGISTER ____*/
+
+
+    /*____ FOOTER ____*/
+    .footer-logo h2 {
+        font-size: 22px;
+    }
+}
+
 /* __________________________________________________________ */
