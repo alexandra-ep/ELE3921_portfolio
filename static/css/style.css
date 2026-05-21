@@ -72,7 +72,7 @@ header {
 
 .default-page nav,
 .bookings-page nav {
-    background: rgba(2, 44, 69, 0.65);
+    background: rgba(2, 45, 69, 0.75);
 }
 
 .nav-toggle {
@@ -259,7 +259,7 @@ footer {
     font-size: 15px;
     font-weight: bold;
     text-decoration: none;
-    padding: 6px 15px;
+    padding: 8px 20px;
     margin: 7px;
     border-radius: 5px;
     border: 2px solid #efecec;
@@ -341,6 +341,7 @@ footer {
     text-decoration: none;
     font-family: 'Horizon', sans-serif;
     color: #1d323e;
+    font-size: 18px;
     transition: opacity 0.2s ease;
 }
 
@@ -503,7 +504,7 @@ footer {
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    padding: 12px 20px;
+    padding: 10px 20px;
     width: 100px;
     border-radius: 5px;
     font-family: 'Montserrat', sans-serif;
@@ -641,7 +642,7 @@ footer {
     padding: 10px 20px;
     margin-top: 10px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     font-size: 14px;
     font-weight: bold;
     font-family: 'Montserrat', sans-serif;
@@ -1069,7 +1070,7 @@ footer {
 
 .auth-btn {
     width: 100%;
-    height: 46px;
+    height: 55px;
     border: none;
     border-radius: 5px;
     background-color: #1d323e;
@@ -1167,6 +1168,8 @@ footer {
 
 /* __________________________________________________________ */
 
+
+
 /* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
     .messages-container {
@@ -1175,6 +1178,11 @@ footer {
     }
 
     /*____ NAV BAR ____*/
+    .default-page .nav-links,
+    .bookings-page .nav-links {
+        background: rgba(2, 45, 69, 0.75);
+    }
+
     nav {
         padding: 20px 24px;
         position: relative;
@@ -1211,13 +1219,16 @@ footer {
     .nav-links-register,
     .logout {
         font-size: 14px;
-        background-color: rgba(0, 0, 0, 0.45);
+        background-color: rgba(0, 0, 0, 0.75);
+        border-radius: 5px;
+        width: 200px;
+        text-align: center;
         padding: 10px 15px;
     }
 
     .nav-links-register,
     .logout {
-        width: 140px;
+        width: 200px;
         text-align: center;
     }
 
@@ -1252,7 +1263,7 @@ footer {
     }
 
     .upcoming-container h2 {
-        font-size: 24px;
+        font-size: 22px;
         margin-bottom: 30px;
         text-align: center;
     }
@@ -1323,7 +1334,7 @@ footer {
         width: 100%;
     }
 
-    .classse-card-left p,
+    .classes-card-left p,
     .classes-card-middle p {
         margin: 6px 0;
         font-size: 14px;
@@ -1331,12 +1342,10 @@ footer {
 
     .classes-card-right {
         width: 100%;
-        justify-content: center;
         margin-top: 10px;
-    }
-
-    .classes-card-right form {
-        flex: 1;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
     }
 
     .book-btn,
@@ -1420,7 +1429,7 @@ footer {
     }
 
     .details-hero-overlay a {
-        font-size: 18px;
+        font-size: 20px;
     }
 
 
@@ -1467,18 +1476,247 @@ footer {
 
 
     /*____ MY BOOKINGS ____*/
+    .bookings {
+        padding: 40px 25px;
+        margin-bottom: 0;
+    }
 
+    .bookings-container h1 {
+        font-size: 22px;
+        margin-bottom: 18px;
+    }
+
+    .bookings-msg {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .bookings-list {
+        gap: 20px;
+    }
+
+    .bookings-card {
+        padding: 25px 22px;
+    }
+
+    .bookings-card-date h2 {
+        font-size: 18px;
+        margin-bottom: 18px;
+    }
+
+    .bookings-card-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .bookings-card-left,
+    .bookings-card-middle {
+        width: 100%;
+    }
+
+    .bookings-card-left p,
+    .bookings-card-middle p {
+        font-size: 14px;
+        margin: 6px 0;
+    }
+
+    .bookings-card-right {
+        width: 100%;
+        margin-top: 10px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .bookings-cancel-btn,
+    .bookings-details-btn {
+        width: 100%;
+        height: 42px;
+        font-size: 14px;
+    }
+
+    .bookings-card-right > a,
+    .bookings-card-right form {
+        flex: 1;
+        min-width: 0;
+    }
     
+    .bookings-hero {
+        background-position: center;
+    }
+
+    .bookings-hero-overlay {
+        padding: 20px;
+    }
+
+    .bookings-hero-overlay a {
+        font-size: 20px;
+    }
+
 
     /*____ LOGIN ____*/
+    .auth-page {
+        overflow: auto;
+    }
+
+    .auth-page .page-container {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .auth-page .content {
+        height: auto;
+        min-height: 100vh;
+        flex: none;
+        padding: 0;
+    }
+
+    .auth-section {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .auth-container {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .auth-image {
+        height: 240px;
+        width: 100%;
+    }
+
+    .auth-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+
+    .auth-form {
+        height: auto;
+        min-height: calc(100vh - 240px);
+        padding: 45px 30px;
+        overflow: visible;
+        align-items: flex-start;
+    }
+
+    .auth-form-box {
+        max-width: 100%;
+    }
+
+    .auth-form-box h1 {
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+    .auth-form-element {
+        gap: 24px;
+    }
+
+    .auth-field label {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .auth-field input {
+        height: 44px;
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .auth-btn {
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    .auth-link {
+        font-size: 16px;
+        margin-top: 90px;
+    }
 
 
     /*____ REGISTER ____*/
+    .register-page {
+        overflow: auto;
+    }
+
+    .register-page .page-container {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .register-page .content {
+        height: auto;
+        min-height: 100vh;
+        padding: 0;
+    }
+
+    .register-section {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .register-container {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .register-image {
+        height: 240px;
+        width: 100%;
+    }
+
+    .register-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+
+    .register-form {
+        height: auto;
+        min-height: calc(100vh - 240px);
+        overflow: visible;
+        padding: 45px 30px;
+        align-items: flex-start;
+    }
+
+    .register-form-box {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .register-form-box h1 {
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+    .register-form-element {
+        gap: 24px;
+    }
+
+    .auth-help-text {
+        font-size: 12px;
+        margin-top: 15px;
+    }
+
+    .auth-error {
+        font-size: 14px;
+        margin-top: 15px;
+    }
 
 
     /*____ FOOTER ____*/
     .footer-logo h2 {
-        font-size: 22px;
+        font-size: 20px;
     }
 }
 
