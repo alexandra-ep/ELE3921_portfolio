@@ -1075,6 +1075,7 @@ footer {
 
 .auth-field input:focus {
     outline: none;
+    box-shadow: 0 0 0 2px rgba(29, 50, 62, 0.25);
 }
 
 .auth-btn {
@@ -1246,13 +1247,13 @@ footer {
     }
 
     .hero-overlay {
-        min-height: 90vhx;
+        min-height: 90vh;
         align-items: flex-end;
     }
 
     .hero-content h1 {
         font-size: 24px;
-        max-width:fit-content;
+        max-width: fit-content;
         padding-bottom: 10px;
     }
 
