@@ -95,7 +95,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .nav-logo a {
@@ -123,7 +123,7 @@ nav {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
 }
 
 .nav-link:hover {
@@ -191,11 +191,16 @@ footer {
 }
 /* __________________________________________________________ */
 
+
 /* MESSAGES/CONFIRMATIONS */
+.messages {
+    padding: 40px 40px 0 40px;
+}
+
 .messages-container {
+    width: 100%;
     max-width: 1200px;
-    margin: 40px 40px 0 40px;
-    box-sizing: border-box;
+    margin: 0 auto;
 }
 
 .message {
@@ -227,14 +232,14 @@ footer {
     background-image: url("/static/images/hero.jpg");
     background-size: cover;
     background-position: center;
-    min-height: 600px;
+    min-height: 90vh;
     position: relative;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
 .hero-overlay {
     background-color: rgba(0, 0, 0, 0.6);
-    min-height: 600px;
+    min-height: 90vh;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -273,7 +278,7 @@ footer {
 
 /* ______UPCOMING CARDS */
 .upcoming {
-    padding: 50px 40px;
+    padding: 70px 40px;
 }
 
 .upcoming-container {
@@ -285,13 +290,14 @@ footer {
 .upcoming-container h2 {
     font-size: 26px;
     margin-bottom: 30px;
+    text-align: center;
 }
 
 .class-cards {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 35px;
 }
 
 .class-card-link {
@@ -328,13 +334,14 @@ footer {
 }
 
 .cta {
-    padding: 0px 0px 50px 40px;
+    padding: 0px 0px 70px 40px;
 }
 
 .cta-container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    text-align: center;
 }
 
 .cta-container a {
@@ -407,7 +414,7 @@ footer {
 }
 
 .filter-select {
-    height: 42px;
+    height: 45px;
     min-width: 160px;
     padding: 0 12px;
     border: none;
@@ -420,8 +427,8 @@ footer {
 }
 
 .filter-btn {
-    height: 42px;
-    padding: 0 18px;
+    height: 45px;
+    padding: 0 20px;
     border: none;
     border-radius: 5px;
     background-color: #1d323e;
@@ -506,6 +513,7 @@ footer {
     text-decoration: none;
     padding: 10px 20px;
     width: 100px;
+    height: 50px;
     border-radius: 5px;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
@@ -591,12 +599,15 @@ footer {
 .class-details-card {
     background-color: #1d323e;
     border-radius: 5px;
-    padding: 30px 30px;
+    padding: 40px 70px;
     display: flex;
     justify-content: space-between;
-    gap: 50px;
     flex-wrap: wrap;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.class-details-left p {
+    font-size: 16px;
 }
 
 .class-details-right {
@@ -607,14 +618,10 @@ footer {
 
 .class-details-left,
 .class-details-right {
-    flex: 1 1 300px;
+    flex: 1 1 380px;
     color: #efecec;
     font-size: 14px;
     margin: 0 0 20px 0;
-}
-
-.class-details-description {
-    max-width: 480px;
 }
 
 .class-details-link a {
@@ -639,6 +646,7 @@ footer {
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: 50px;
     padding: 10px 20px;
     margin-top: 10px;
     border: none;
@@ -766,15 +774,15 @@ footer {
     border-radius: 50%;
 }
 
-.instructor-name{
-    font-size: 16px;
+.instructor-name {
+    font-size: 18px;
     margin-bottom: 10px;
     font-family: 'Montserrat', sans-serif;
     color: #efecec;
 }
 
 .instructor-email {
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 20px;
     font-family: 'Montserrat', sans-serif;
     color: #efecec;
@@ -784,7 +792,7 @@ footer {
     max-width: 420px;
     line-height: 1.5;
     margin: 0 auto;
-    font-size: 12px;
+    font-size: 14px;
     color: #efecec;
 }
 
@@ -883,6 +891,7 @@ footer {
     text-decoration: none;
     padding: 12px 20px;
     width: 100px;
+    height: 50px;
     border-radius: 5px;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
@@ -1169,11 +1178,10 @@ footer {
 /* __________________________________________________________ */
 
 
-
 /* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
-    .messages-container {
-        margin: 20px 20px 0;
+    .messages {
+        padding: 40px 25px 0 25px;
         font-size: 12px;
     }
 
@@ -1189,7 +1197,7 @@ footer {
     }
 
     .nav-logo a {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .nav-toggle-label {
@@ -1202,7 +1210,7 @@ footer {
         top: 100%;
         left: 0;
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.45);
+        background-color: rgba(0, 0, 0, 0.5);
         flex-direction: column;
         align-items: center;
         gap: 15px;
@@ -1219,7 +1227,6 @@ footer {
     .nav-links-register,
     .logout {
         font-size: 14px;
-        background-color: rgba(0, 0, 0, 0.75);
         border-radius: 5px;
         width: 200px;
         text-align: center;
@@ -1234,12 +1241,12 @@ footer {
 
     /*____ HOME ____*/
     .hero {
-        min-height: 590px;
+        min-height: 90vh;
         background-position: center;
     }
 
     .hero-overlay {
-        min-height: 590px;
+        min-height: 90vhx;
         align-items: flex-end;
     }
 
@@ -1254,7 +1261,7 @@ footer {
         display: inline-flex;
         justify-content: center;
         min-width: 95px;
-        font-size: 14px;
+        font-size: 16px;
         padding: 8px 14px;
     }
 
@@ -1278,7 +1285,7 @@ footer {
 
     .cta {
         text-align: center;
-        padding: 0 0 40px 0;
+        padding: 15px 0 60px 0;
     }
 
     .banner {
@@ -1290,6 +1297,10 @@ footer {
     .classes {
         padding: 40px 25px;
         margin-bottom: 0;
+    }
+    
+    .classes-container {
+        margin-bottom: 20px;
     }
 
     .classes-container h1 {
@@ -1307,7 +1318,6 @@ footer {
     .filter-select,
     .filter-btn {
         width: 100%;
-        height: 44px;
         font-size: 14px;
     }
 
@@ -1316,6 +1326,10 @@ footer {
         text-align: center;
         margin-top: 4px;
         font-size: 14px;
+    }
+
+    .classes-list {
+        gap: 30px;
     }
 
     .classes-card-date h2 {
@@ -1367,7 +1381,7 @@ footer {
     /*____ CLASS DETAIL ____*/
     .class-details {
         padding: 40px 25px;
-        margin-bottom: 0;
+        margin-bottom: 20px;
     }
 
     .class-details-header {
@@ -1386,7 +1400,7 @@ footer {
 
     .class-details-header-right {
         flex-direction: column;
-        gap: 6px;
+        gap: 10px;
     }
 
     .class-details-card {
@@ -1400,6 +1414,12 @@ footer {
         flex: none;
         width: 100%;
         margin: 0;
+        font-size: 14px;
+    }
+
+    .class-details-left p,
+    .class-details-right p {
+        font-size: 14px;
     }
 
    .class-details-description {
@@ -1439,6 +1459,10 @@ footer {
         margin-bottom: 0;
     }
 
+    .instructors-container {
+        margin-bottom: 20px;
+    }
+
     .instructors-container h1 {
         font-size: 20px;
         margin-bottom: 30px;
@@ -1446,7 +1470,7 @@ footer {
 
     .instructors-grid {
         grid-template-columns: 1fr;
-        gap: 28px;
+        gap: 30px;
     }
 
     .instructor-card {
@@ -1471,7 +1495,7 @@ footer {
 
     .instructor-bio {
         max-width: 100%;
-        font-size: 12px;
+        font-size: 14px;
     }
 
 
@@ -1479,6 +1503,10 @@ footer {
     .bookings {
         padding: 40px 25px;
         margin-bottom: 0;
+    }
+
+    .bookings-container {
+        margin-bottom: 20px;
     }
 
     .bookings-container h1 {
@@ -1716,7 +1744,7 @@ footer {
 
     /*____ FOOTER ____*/
     .footer-logo h2 {
-        font-size: 20px;
+        font-size: 22px;
     }
 }
 
