@@ -53,8 +53,9 @@
                             <p class="booking-message">Sorry, the class is full.</p>
                         {% else %}
                             <a href="{% url 'login' %}" class="book-detail-btn">Log in to book</a>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
+                </div>
             </div>
         </div>
     </section>

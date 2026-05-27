@@ -13,8 +13,8 @@
                 {% else %}
                     <h1>Welcome to Elevate</h1>
                     <div class="hero-content-links">
-                        <a href="/accounts/login/" class="login">Log In</a>
-                        <a href="/accounts/register/" class="register">Register</a>
+                        <a href="{% url 'login' %}" class="login">Log In</a>
+                        <a href="{% url 'register' %}" class="register">Register</a>
                     </div>
                 {% endif %}
             </div>
