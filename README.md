@@ -2,4 +2,9 @@
 ELEVATE. 
 A Django web application for managing fitness class bookings, including user registration, class scheduling, and booking management. Developed for ELE3921 – Web Applications Development at BI Oslo, Spring 2026. 
 
-Username: admin | Email: admin | Password: admin
+## Test credentials
+### Admin user
+Username: admin | Password: admin
+
+### Regular user
+Username: summersmith | Password: testuser1
