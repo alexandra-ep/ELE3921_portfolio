@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import timedelta
+from django.utils import timezone
 
 #Instructor
 class Instructor(models.Model):
@@ -94,6 +96,10 @@ class FitnessClass(models.Model):
     
     def is_full(self):
         return self.spots_remaining() <= 0
+    
+    def can_cancel(self):
+        cancellation_deadline = self.start_time - timedelta(hours=3)
+        return timezone.now() < cancellation_deadline
     
 
 #Bookings

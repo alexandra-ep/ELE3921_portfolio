@@ -76,11 +76,13 @@ def register(request):
         form = UserCreationForm(request.POST)
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
+        email = request.POST.get("email")
 
         if form.is_valid():
             user = form.save(commit=False)
             user.first_name = first_name
             user.last_name = last_name
+            user.email = email
             user.save()
 
             login(request, user)
@@ -133,13 +135,16 @@ def cancel_booking(request, class_id):
         fitness_class=fitness_class
     ).first()
 
+    next_page = request.POST.get("next")
+
     if booking:
-        booking.delete()
-        messages.success(request, "Your booking has been cancelled.")
+        if fitness_class.can_cancel():
+            booking.delete()
+            messages.success(request, "Your booking has been cancelled.")
+        else:
+            messages.warning(request, "You cannot cancel this booking within 3 hours of the class start time.")
     else:
         messages.warning(request, "No booking was found for this class.")
-
-    next_page = request.POST.get("next")
 
     if next_page == "my_bookings":
         return redirect("my_bookings")
