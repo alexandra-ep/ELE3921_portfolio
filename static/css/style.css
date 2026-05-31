@@ -1,11 +1,22 @@
-/* Colour palette 
-background: #efecec
-primary color: #1d323e
-transparency-white: #ffffff
-transparency-black: #000000
-*/
 
-/* FONT FAMILY */
+/* ==============================
+    1. Variables
+   ============================== */
+:root {
+    --color-primary: #efefef;
+    --color-secondary: #1d323e;
+    --color-confirmation: #4f7f5d;
+    --color-booking: #935122;
+    --color-booking-hover: #b06d3e;
+    --color-danger: #932238;
+    --color-danger-hover: #c03954;
+    --color-nav-dark: rgba(0, 0, 0, 0.5);
+    --color-nav-light: rgba(2, 45, 69, 0.75);
+    --color-nav-links: rgba(254, 254, 254, 0.1);
+    --shadow-card: 0 4px 10px rgba(0, 0, 0, 0.5);
+    --radius-main: 5px;
+}
+
 @font-face {
     font-family: 'Horizon';
     src: url('/static/fonts/Horizon.woff2') format('woff2');
@@ -13,7 +24,10 @@ transparency-black: #000000
     font-style: normal;
 }
 
-/* MAIN SECTIONS */
+
+/* ==============================
+   2. Global Styles
+   ============================== */
 *,
 *::before,
 *::after {
@@ -22,14 +36,14 @@ transparency-black: #000000
 
 h1, h2, h3 {
     font-family: 'Horizon', sans-serif;
-    color: #1d323e;
+    color: var(--color-secondary);
 }
 
 html, body {
     height: 100%;
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background-color: #efecec;
+    background-color: var(--color-primary);
 }
 
 .page-container {
@@ -70,9 +84,32 @@ header {
     flex: 1;
 }
 
+.classes,
+.class-details,
+.instructors,
+.bookings {
+    padding: 40px 40px;
+    margin-bottom: 30px;
+}
+
+.upcoming-container,
+.cta-container,
+.classes-container,
+.class-details-container,
+.instructors-container,
+.bookings-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* ==============================
+   3. Navigation Bar
+   ============================== */
 .default-page nav,
 .bookings-page nav {
-    background: rgba(2, 45, 69, 0.75);
+    background: var(--color-nav-light);
 }
 
 .nav-toggle {
@@ -81,7 +118,7 @@ header {
 
 .nav-toggle-label {
     display: none;
-    color: #efecec;
+    color: var(--color-primary);
     font-size: 24px;
     cursor: pointer;
 }
@@ -95,7 +132,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--color-nav-dark);
 }
 
 .nav-logo a {
@@ -107,7 +144,7 @@ nav {
 .nav-links-register, 
 .logout {
     text-decoration: none;
-    color: #efecec;
+    color: var(--color-primary);
     font-size: 14px;
     font-weight: bold;
     transition: opacity 0.2s ease;
@@ -117,7 +154,7 @@ nav {
     font-family: 'Horizon', sans-serif;
     font-size: 24px;
     font-weight: bold;
-    color: #efecec;
+    color: var(--color-primary);
 }
 
 .nav-links {
@@ -133,8 +170,8 @@ nav {
 .nav-links-register,
 .logout {
     font-family: 'Montserrat', sans-serif;
-    background-color: rgba(254, 254, 254, 0.1);
-    color: #efecec;
+    background-color: var(--color-nav-links);
+    color: var(--color-primary);
     padding: 6px 15px;
     border-radius: 5px;
     border: 2px solid #efecec;
@@ -147,20 +184,22 @@ nav {
 .nav-links-register:hover,
 .logout:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* FOOTER */
+
+/* ==============================
+   4. Footer
+   ============================== */
 footer {
-    background-color: #1d323e;
-    color: #efecec;
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
     text-align: center;
     padding: 40px 20px;
 }
 
 .footer-logo h2 {
     font-family: 'Horizon', sans-serif;
-    color: #efecec;
+    color: var(--color-primary);
     margin-bottom: 15px;
 }
 
@@ -169,7 +208,7 @@ footer {
 }
 
 .footer-socials a {
-    color: #efecec;
+    color: var(--color-primary);
     margin: 0 10px;
     font-size: 20px;
 }
@@ -182,17 +221,17 @@ footer {
 .footer-socials a i:hover {
     color: #a8a2a2;
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .footer-copy p {
     font-size: 12px;
     opacity: 0.8;
 }
-/* __________________________________________________________ */
 
 
-/* MESSAGES/CONFIRMATIONS */
+/* ==============================
+   5. Messages
+   ============================== */
 .messages {
     padding: 40px 40px 0 40px;
 }
@@ -211,7 +250,7 @@ footer {
 }
 
 .message.success {
-    background-color: #4f7f5d;
+    background-color: var(--color-confirmation);
     color: #f3eeee;
 }
 
@@ -224,17 +263,42 @@ footer {
     background-color: #63161c;
     color: #f3eeee;
 }
-/* __________________________________________________________ */
 
-/* HOME PAGE */
-/* ______HERO */
+
+/* ==============================
+   6. Buttons
+   ============================== */
+   /*
+.btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 10px 20px;
+    width: 100px;
+    height: 50px;
+    border-radius: var(--radius-main);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    box-sizing: border-box;
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+    */
+
+/* ==============================
+   7. Home page
+   ============================== */
 .hero {
     background-image: url("/static/images/hero.jpg");
     background-size: cover;
     background-position: center;
     min-height: 90vh;
     position: relative;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    box-shadow: var(--shadow-card);
 }
 
 .hero-overlay {
@@ -248,7 +312,7 @@ footer {
 }
 
 .hero-content h1 {
-    color: #efecec;
+    color: var(--color-primary);
     font-size: 30px;
     font-family: 'Horizon', sans-serif;
     padding-bottom: 15px;
@@ -260,7 +324,7 @@ footer {
 
 .login, .register {
     background: rgba(239, 236, 236, 0.85);
-    color: #1d323e;
+    color: var(--color-primary);
     font-size: 15px;
     font-weight: bold;
     text-decoration: none;
@@ -276,15 +340,8 @@ footer {
     opacity: 0.85;
 }
 
-/* ______UPCOMING CARDS */
 .upcoming {
     padding: 70px 40px;
-}
-
-.upcoming-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .upcoming-container h2 {
@@ -306,13 +363,13 @@ footer {
 }
 
 .class-card {
-    background-color: #1d323e;
+    background-color: var(--color-secondary);
     width: 280px;
     border-radius: 5px;
     padding: 30px 20px;
     box-sizing: border-box;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    box-shadow: var(--shadow-card);
 }
 
 .class-card {
@@ -325,7 +382,7 @@ footer {
 
 .class-card h3, 
 .class-card p {
-    color: #efecec;
+    color: var(--color-primary);
 }
 
 .class-card p {
@@ -333,21 +390,22 @@ footer {
     margin: 8px 0px;
 }
 
+.class-card p i {
+    margin-right: 8px;
+}
+
 .cta {
     padding: 0px 0px 70px 40px;
 }
 
 .cta-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
     text-align: center;
 }
 
 .cta-container a {
     text-decoration: none;
     font-family: 'Horizon', sans-serif;
-    color: #1d323e;
+    color: var(--color-secondary);
     font-size: 18px;
     transition: opacity 0.2s ease;
 }
@@ -360,8 +418,6 @@ footer {
     padding-left: 10px;
 }
 
-
-/* ______BANNER */
 .banner {
     background-image: url("/static/images/motivation.jpg");
     background-size: cover;
@@ -385,26 +441,16 @@ footer {
     font-size: 22px;
     font-family: 'Horizon', sans-serif;
 }
-/* __________________________________________________________ */
 
-/* CLASSES PAGE */
-.classes {
-    padding: 40px 40px;
-    margin-bottom: 30px;
-}
 
-.classes-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
+/* ==============================
+   8. Classes Page
+   ============================== */
 .classes-container h1 {
     margin-bottom: 30px;
     font-size: 28px;
 }
 
-/* ______FILTER */
 .classes-filter-form {
     display: flex;
     align-items: center;
@@ -430,9 +476,9 @@ footer {
     height: 45px;
     padding: 0 20px;
     border: none;
-    border-radius: 5px;
-    background-color: #1d323e;
-    color: #efecec;
+    border-radius: var(--radius-main);
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
     font-size: 14px;
     font-weight: bold;
     font-family: 'Montserrat', sans-serif;
@@ -441,14 +487,12 @@ footer {
 }
 
 .clear-filter-btn {
-    color: #1d323e;
+    color: var(--color-secondary);
     font-size: 14px;
     font-weight: bold;
     text-decoration: none;
 }
-/* __________________________________________________________ */
 
-/* ______CLASSES CARDS */
 .classes-list {
     display: flex;
     flex-direction: column;
@@ -456,30 +500,31 @@ footer {
 }
 
 .classes-card {
-    background-color: #1d323e;
-    border-radius: 5px;
+    background-color: var(--color-secondary);
+    border-radius: var(--radius-main);
     padding: 30px 30px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
 .classes-card-date h2 {
     margin: 0 0 8px 0;
-    color: #efecec;
+    color: var(--color-primary);
     font-size: 20px;
 }
 
 .classes-card-content {
-    color: #efecec;
+    color: var(--color-primary);
     display: flex;
     justify-content: space-between;
     align-content: center;
     gap: 40px;
 }
 
-.classes-card-left {
-    flex: 1;
+.classes-card-content p i {
+    margin-right: 8px;
 }
 
+.classes-card-left,
 .classes-card-middle {
     flex: 1;
 }
@@ -560,22 +605,55 @@ footer {
     cursor: default;
 }
 
-/* __________________________________________________________ */
 
 
-/* CLASS DETAIL PAGE */
-.class-details {
+/* ==============================
+   8. Classes Detail Page
+   ============================== */
+.class-details-card {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.class-details-left {
+    flex: 0 0 480px;
+
+}
+
+.class-details-left-info {
+    color: var(--color-secondary);
+    margin-top: 40px;
+}
+
+.class-details-left-info p i {
+    margin-right: 8px;
+}
+
+.spots-remaining {
+    font-weight: bold;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    padding: 20px 0 20px 0;
+    margin: 0;
+}
+
+.spots-remaining i {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+.class-details-right {
+    flex: 1;
+    background: var(--color-secondary);
     padding: 40px 40px;
-    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    border-radius: var(--radius-main);
+    color: var(--color-primary);
+    
 }
-
-.class-details-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* ______CLASS DETAIL CARD */
+   /*
 .class-details-header {
     display: flex;
     justify-content: space-between;
@@ -633,7 +711,7 @@ footer {
 .class-details-link a i {
     padding-left: 10px;
 }
-
+*/
 .booking-message {
     margin: 25px 0 15px 0;
     font-size: 14px;
@@ -691,9 +769,6 @@ footer {
     background-color: #c03954;
 }
 
-/* ______ */
-
-/* ______CLASS DETAIL BANNER */
 .details-hero{
     background-image: url("/static/images/details.jpg");
     background-size: cover;
@@ -727,21 +802,11 @@ footer {
 .details-hero-overlay a i{
     padding-left: 10px;
 }
-/* __________________________________________________________ */
 
 
-/* INSTRUCTORS PAGE */
-.instructors {
-    padding: 40px 40px;
-    margin-bottom: 30px;
-}
-
-.instructors-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
+/* ==============================
+   9. Instructors Page
+   ============================== */
 .instructors-container h1 {
     margin-bottom: 30px;
     font-size: 28px;
@@ -763,8 +828,8 @@ footer {
 }
 
 .instructor-image-wrapper {
-    width: 190px;
-    height: 190px;
+    width: 200px;
+    height: 200px;
     margin: 0 auto 25px;
     border-radius: 50%;
     overflow: hidden;
@@ -813,21 +878,10 @@ footer {
     margin-top: 20px;
 }
 
-/* __________________________________________________________ */
 
-
-/* MY BOOKINGS PAGE */
-.bookings {
-    padding: 40px 40px;
-    margin-bottom: 30px;
-}
-
-.bookings-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
+/* ==============================
+   10. My Bookings Page
+   ============================== */
 .bookings-container h1 {
     margin-bottom: 0;
     font-size: 28px;
@@ -840,7 +894,6 @@ footer {
     margin-bottom: 30px;
 }
 
-/* ______BOOKING DETAIL CARD */
 .bookings-list {
     display: flex;
     flex-direction: column;
@@ -942,9 +995,6 @@ footer {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* ______ */
-
-/* ______BOOKINGS DETAIL BANNER */
 .bookings-hero {
     background-image: url("/static/images/bookings.jpg");
     background-size: cover;
@@ -981,9 +1031,10 @@ footer {
     padding-left: 10px;
 }
 
-/* __________________________________________________________ */
 
-/* LOGIN PAGE */
+/* ==============================
+   11. Login Page
+   ============================== */
 .auth-page {
     overflow: hidden;
 }
@@ -1134,9 +1185,10 @@ footer {
     opacity: 0.65;
 }
 
-/* __________________________________________________________ */
 
-/* REGISTER PAGE */
+/* ==============================
+   12. Register Page
+   ============================== */
 .register-page {
     overflow: hidden;
 }
@@ -1193,20 +1245,20 @@ footer {
     line-height: 1.5;
 }
 
-/* __________________________________________________________ */
 
-
-/* RESPONSIVE DESIGN */
+/* ==============================
+   13. Responsive Design - Mobile
+   ============================== */
 @media (max-width: 768px) {
     .messages {
         padding: 40px 25px 0 25px;
         font-size: 12px;
     }
 
-    /*____ NAV BAR ____*/
+    /* ==== Navigation Bar ==== */
     .default-page .nav-links,
     .bookings-page .nav-links {
-        background: rgba(2, 45, 69, 0.75);
+        background: #022d45bf;
     }
 
     nav {
@@ -1257,7 +1309,7 @@ footer {
         text-align: center;
     }
 
-    /*____ HOME ____*/
+    /* ==== Home Page ==== */
     .hero {
         min-height: 90vh;
         background-position: center;
@@ -1311,7 +1363,7 @@ footer {
     }
 
 
-    /*____ CLASSES ____*/
+    /* ==== Classes Page ==== */
     .classes {
         padding: 40px 25px;
         margin-bottom: 0;
@@ -1396,7 +1448,7 @@ footer {
     }
 
 
-    /*____ CLASS DETAIL ____*/
+    /* ==== Class Details Page ==== */
     .class-details {
         padding: 40px 25px;
         margin-bottom: 20px;
@@ -1471,7 +1523,7 @@ footer {
     }
 
 
-    /*____ INSTRUCTORS ____*/
+    /* ==== Instructors Page ==== */
     .instructors {
         padding: 40px 25px;
         margin-bottom: 0;
@@ -1517,7 +1569,7 @@ footer {
     }
 
 
-    /*____ MY BOOKINGS ____*/
+    /* ==== My Bookings Page ==== */
     .bookings {
         padding: 40px 25px;
         margin-bottom: 0;
@@ -1601,7 +1653,7 @@ footer {
     }
 
 
-    /*____ LOGIN ____*/
+    /* ==== Login Page ==== */
     .auth-page {
         overflow: auto;
     }
@@ -1686,7 +1738,7 @@ footer {
     }
 
 
-    /*____ REGISTER ____*/
+    /* ==== Register Page ==== */
     .register-page {
         overflow: auto;
     }
@@ -1760,10 +1812,13 @@ footer {
     }
 
 
-    /*____ FOOTER ____*/
+    /* ==== Footer ==== */
     .footer-logo h2 {
         font-size: 22px;
     }
 }
 
-/* __________________________________________________________ */
+
+/* ==============================
+   14. Responsive Design - Tablet
+   ============================== */

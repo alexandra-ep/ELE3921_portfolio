@@ -7,26 +7,21 @@
 {% block content %}
     <section class="class-details">
         <div class="class-details-container">
-            <div class="class-details-header">
-                <h1>{{ fitness_class.class_type.name }}</h1>
-                <div class="class-details-header-right">
-                    <span>{{ fitness_class.start_time|date:"l d.m." }}</span>
-                    <span>{{ fitness_class.start_time|date:"H:i" }} - {{ fitness_class.end_time|date:"H:i" }}</span>
-                </div>
-            </div>
-
             <div class="class-details-card">
                 <div class="class-details-left">
-                    <p><strong>Instructor:</strong> {{ fitness_class.instructor }}</p>
-                    <p><strong>Location:</strong> {{ fitness_class.location }}</p>
-                    <p><strong>Capacity:</strong> {{ fitness_class.capacity }}</p>
-                    <p><strong>Spots remaining:</strong> {{ fitness_class.spots_remaining }}</p>
+                    <h1>{{ fitness_class.class_type.name }}</h1>
+                    <h2>{{ fitness_class.start_time|date:"l d.m." }}</h2>
+                    <h2>{{ fitness_class.start_time|date:"H:i" }} - {{ fitness_class.end_time|date:"H:i" }}</h2>
+                    <div class="class-details-left-info">
+                        <p><i class="fa-solid fa-user"></i> <strong>{{ fitness_class.instructor }}</strong></p>
+                        <p><i class="fa-solid fa-location-dot"></i> <strong>{{ fitness_class.location }}, {{ fitness_class.location.address }}</strong></p>
+                        <p><i class="fa-solid fa-clock"></i> <strong>{{ fitness_class.class_type.duration_minutes }} minutes</strong></p>
+                    </div>
                 </div>
 
                 <div class="class-details-right">
-                    <p class="class-details-description">
-                        {{ fitness_class.class_type.description }}  
-                    </p>
+                    <p class="class-details-description">{{ fitness_class.class_type.description }}</p>
+                    <p class="spots-remaining"><i class="fa-solid fa-users-line"></i> {{ fitness_class.spots_remaining }} available spots</p>
 
                     {% if user.is_authenticated %}
                         {% if user_booking %}

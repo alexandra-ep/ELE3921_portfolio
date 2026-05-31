@@ -46,13 +46,15 @@
 
                             <div class="classes-card-content">
                                 <div class="classes-card-left">
-                                    <p><strong>{{ fitness_class.class_type.name }}</strong></p>
-                                    <p>{{ fitness_class.start_time|date:"H:i" }} - {{ fitness_class.end_time|date:"H:i" }}</p>
+                                    <p><strong>{{ fitness_class.start_time|date:"H:i" }} - {{ fitness_class.end_time|date:"H:i" }}</strong></p>
+                                    <p>{{ fitness_class.class_type.duration_minutes }} minutes</p>
+                                    <p>{{ fitness_class.spots_remaining }} available spots</p>
                                 </div>
 
                                 <div class="classes-card-middle">
-                                    <p><strong>Instructor:</strong> {{ fitness_class.instructor }}</p>
-                                    <p><strong>Location:</strong> {{ fitness_class.location }}</p>
+                                    <p><strong>{{ fitness_class.class_type.name }}</strong></p>
+                                    <p><i class="fa-solid fa-user"></i> {{ fitness_class.instructor }}</p>
+                                    <p><i class="fa-solid fa-location-dot"></i>{{ fitness_class.location }}, {{ fitness_class.location.address }}</p>
                                 </div>
 
                                 <div class="classes-card-right">
