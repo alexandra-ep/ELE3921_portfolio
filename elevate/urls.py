@@ -10,5 +10,6 @@ urlpatterns = [
     path("instructors/", views.instructors_list, name="instructors_list"),
     path("my-bookings/", views.my_bookings, name="my_bookings"),
     path("profile/update/", views.update_profile, name="update_profile"),
+    path("profile/change-password/", views.change_password, name="change_password"),
     path("accounts/register/", views.register, name="register"),
 ]

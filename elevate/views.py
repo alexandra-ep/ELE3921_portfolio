@@ -1,13 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import RegisterForm, BookingForm, CancelBookingForm, ProfileUpdateForm
 from django.utils import timezone
-from django.contrib.auth import login
+from django.contrib.auth import login, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 from .models import FitnessClass, Instructor, Booking, ClassCategory, Location
 
 
+# Homepage View
 def home(request):
     upcoming_classes = FitnessClass.objects.filter(
         start_time__gte=timezone.now(),
@@ -19,6 +21,7 @@ def home(request):
     })
 
 
+# Classes List View
 def classes_list(request):
     classes = FitnessClass.objects.filter(
         start_time__gte=timezone.now(),
@@ -59,11 +62,14 @@ def classes_list(request):
         "selected_date": selected_date,
     })
 
+
+# Instructors Page View
 def instructors_list(request):
     instructors = Instructor.objects.all().order_by("last_name")
     return render(request, "instructors_list.html", {"instructors": instructors})
 
 
+# Class Detail View
 def class_detail(request, class_id):
     fitness_class = get_object_or_404(FitnessClass, id=class_id)
 
@@ -82,6 +88,7 @@ def class_detail(request, class_id):
     })
 
 
+# Registration View
 def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -103,7 +110,8 @@ def register(request):
     return render (request, "registration/register.html", {"form": form})
 
 
- 
+
+# Logged-in User Views
 @login_required
 @require_POST
 def book_class(request, class_id):
@@ -217,6 +225,7 @@ def my_bookings(request):
     ).order_by("-fitness_class__start_time")
 
     profile_form = ProfileUpdateForm(instance=request.user)
+    password_form = PasswordChangeForm(request.user)
 
     return render(request, "my_bookings.html", {
         "bookings": upcoming_bookings,
@@ -224,7 +233,9 @@ def my_bookings(request):
         "past_bookings": past_bookings,
         "cancelled_bookings": cancelled_bookings,
         "profile_form": profile_form,
+        "password_form": password_form
     })
+
 
 @login_required
 @require_POST
@@ -237,4 +248,19 @@ def update_profile(request):
     else:
         messages.warning(request, "Your personal information could not be updated. Please check the form.")
     
+    return redirect("my_bookings")
+
+
+@login_required
+@require_POST
+def change_password(request):
+    form = PasswordChangeForm(request.user, request.POST)
+
+    if form.is_valid():
+        user = form.save()
+        update_session_auth_hash(request, user)
+        messages.success(request, "Your password has been updated.")
+    else:
+        messages.warning(request, "Your password could not be updated. Please check the form.")
+
     return redirect("my_bookings")
