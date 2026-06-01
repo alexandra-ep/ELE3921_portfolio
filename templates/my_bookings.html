@@ -7,14 +7,51 @@
 {% block content %}
     <section class="bookings">
         <div class="bookings-container">
-            <h1>My bookings</h1>
+            <div class="bookings-profile-header">
+                <h1>Hi, {{ request.user.first_name|default:request.user.username }}! </h1>
+                <button type="button" class="profile-edit-btn" onclick="document.getElementById('profile-popup').classList.add('is-open')">
+                    <i class="fa-solid fa-user-pen"></i> Edit personal information
+                </button>
+                <p class="bookings-msg">Here you can see your upcoming and past classes, and manage your bookings.</p>
+            </div>
 
-            {% if bookings %}
-                <p class="bookings-msg">Here you can see your upcoming classes and manage your bookings.</p>
-                
-                <div class="bookings-list">
-                    {% for booking in bookings %}
-                        <div class="bookings-card">
+            <div class="profile-popup-overlay" id="profile-popup">
+                <div class="message-popup profile-popup-box">
+                    <button type="button" class="message-popup-close" onclick="document.getElementById('profile-popup').classList.remove('is-open')">
+                        &times;
+                    </button>
+
+                    <h3>Edit personal information</h3>
+
+                    <form method="post" action="{% url 'update_profile' %}" class="profile-popup-form">
+                        {% csrf_token %}
+
+                        <div class="profile-popup-field">
+                            <label for="{{ profile_form.first_name.id_for_label }}">First name:</label>
+                            {{ profile_form.first_name }}
+                        </div>
+
+                        <div class="profile-popup-field">
+                            <label for="{{ profile_form.last_name.id_for_label }}">Last name:</label>
+                            {{ profile_form.last_name }}
+                        </div>
+
+                        <div class="profile-popup-field">
+                            <label for="{{ profile_form.email.id_for_label }}">E-mail:</label>
+                            {{ profile_form.email }}
+                        </div>
+
+                        <button type="submit" class="auth-btn">Save changes</button>
+                    </form>
+                </div>
+            </div>
+
+            <h2>My Upcoming Bookings</h2>
+
+            {% if upcoming_bookings %}
+                <div class="bookings-list" data-booking-section="upcoming">
+                    {% for booking in upcoming_bookings %}
+                        <div class="bookings-card {% if forloop.counter > 3 %}booking-card-hidden{% endif %}">
 
                             <div class="bookings-card-date">
                                 <h2>{{ booking.fitness_class.start_time|date:"l d.m." }}</h2>
@@ -22,13 +59,15 @@
 
                             <div class="bookings-card-content">
                                 <div class="bookings-card-left">
-                                    <p>{{ booking.fitness_class.class_type.name }}</p>
-                                    <p>{{ booking.fitness_class.start_time|date:"H:i" }} - {{ booking.fitness_class.end_time|date:"H:i" }}</p>
+                                    <p><strong>{{ booking.fitness_class.start_time|date:"H:i" }} - {{ booking.fitness_class.end_time|date:"H:i" }}</strong></p>
+                                    <p>{{ booking.fitness_class.class_type.duration_minutes }} minutes</p>
+                                    <p class="spots-remaining">{{ booking.fitness_class.spots_remaining }} spots available</p>
                                 </div>
 
                                 <div class="bookings-card-middle">
-                                    <p><strong>Instructor:</strong> {{ booking.fitness_class.instructor }}</p>
-                                    <p><strong>Location:</strong> {{ booking.fitness_class.location }}</p>
+                                    <p><strong>{{ booking.fitness_class.class_type.name }}</strong></p>
+                                    <p><i class="fa-solid fa-user"></i> {{ booking.fitness_class.instructor }}</p>
+                                    <p><i class="fa-solid fa-location-dot"></i> {{ booking.fitness_class.location }}, {{ booking.fitness_class.location.address }}</p>
                                 </div>
 
                                 <div class="bookings-card-right">
@@ -43,17 +82,69 @@
                                         <span class="btn locked-btn">Locked</span>
                                     {% endif %}
 
-                                    <a href="{% url 'class_detail' booking.fitness_class.id %}" class="btn secondary-btn">
-                                        Details
-                                    </a>
+                                    <a href="{% url 'class_detail' booking.fitness_class.id %}" class="btn secondary-btn">Details</a>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
 
+                {% if upcoming_bookings|length > 3 %}
+                    <button type="button" class="show-more-btn" data-target="upcoming">Show more upcoming bookings <i class="fa-solid fa-angle-down"></i></button>
+                {% endif %}
             {% else %}
                 <p class="empty-state">You have no upcoming bookings yet.</p>
+            {% endif %}
+
+
+
+            <h2 class="past-bookings-title">My Past Bookings</h2>
+
+            {% if past_bookings %}
+                <div class="bookings-list" data-booking-section="past">
+                    {% for booking in past_bookings %}
+                        <div class="bookings-card {% if forloop.counter > 3 %}booking-card-hidden{% endif %}">
+                            <div class="bookings-card-date">
+                                <h2>{{ booking.fitness_class.start_time|date:"l d.m." }}</h2>
+                            </div>
+
+                            <div class="bookings-card-content">
+                                <div class="bookings-card-left">
+                                    <p><strong>{{ booking.fitness_class.start_time|date:"H:i" }} - {{ booking.fitness_class.end_time|date:"H:i" }}</strong></p>
+                                    <p>{{ booking.fitness_class.class_type.duration_minutes }} minutes</p>
+                                    <p class="spots-remaining">{{ booking.fitness_class.spots_remaining }} spots available</p>
+                                </div>
+
+                                <div class="bookings-card-middle">
+                                    <p><strong>{{ booking.fitness_class.class_type.name }}</strong></p>
+                                    <p><i class="fa-solid fa-user"></i> {{ booking.fitness_class.instructor }}</p>
+                                    <p><i class="fa-solid fa-location-dot"></i> {{ booking.fitness_class.location }}, {{ booking.fitness_class.location.address }}</p>
+                                </div>
+
+                                <div class="bookings-card-right">
+                                    {% if booking.fitness_class.can_cancel %}
+                                        <form method="post" action="{% url 'cancel_booking' booking.id %}" onsubmit="return confirm('Are you sure you want to cancel this booking?');">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="confirm_cancel" value="true">
+                                            <input type="hidden" name="next" value="my_bookings">
+                                            <button type="submit" class="btn warning-btn">Cancel</button>
+                                        </form>
+                                    {% else %}
+                                        <span class="btn locked-btn">Locked</span>
+                                    {% endif %}
+
+                                    <a href="{% url 'class_detail' booking.fitness_class.id %}" class="btn secondary-btn">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {% if past_bookings|length > 3 %}
+                    <button type="button" class="show-more-btn" data-target="past">Show more past bookings <i class="fa-solid fa-angle-down"></i></button>
+                {% endif %}
+            {% else %}
+                <p class="empty-state">You have no past bookings yet.</p>
             {% endif %}
         </div>
     </section>
@@ -63,4 +154,39 @@
             <a href="{% url 'classes_list' %}">Browse classes<i class="fa-solid fa-angle-right"></i></a>
         </div>
     </section>
+
+<!-- Show More Button Script --> 
+<script>
+    document.querySelectorAll(".show-more-btn").forEach(function(button) {
+        button.addEventListener("click", function() {
+            const target = button.dataset.target;
+            const section = document.querySelector('[data-booking-section="' + target + '"]');
+            const hiddenCards = section.querySelectorAll(".booking-card-hidden");
+
+            hiddenCards.forEach(function(card, index) {
+                if (index < 3) {
+                    card.classList.remove("booking-card-hidden");
+                }
+            });
+
+            if (section.querySelectorAll(".booking-card-hidden").length === 0) {
+                button.style.display = "none";
+            }
+        });
+    });
+</script>
+
+<!-- Pop Up Script -->
+<script>
+    const profilePopup = document.getElementById("profile-popup");
+
+    if (profilePopup) {
+        profilePopup.addEventListener("click", function(event) {
+            if (event.target === profilePopup) {
+                profilePopup.classList.remove("is-open");
+            }
+        });
+    }
+</script>
+
 {% endblock %}

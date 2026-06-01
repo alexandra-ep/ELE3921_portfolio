@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import RegisterForm, BookingForm, CancelBookingForm
+from .forms import RegisterForm, BookingForm, CancelBookingForm, ProfileUpdateForm
 from django.utils import timezone
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -216,9 +216,25 @@ def my_bookings(request):
         "fitness_class__location"
     ).order_by("-fitness_class__start_time")
 
+    profile_form = ProfileUpdateForm(instance=request.user)
+
     return render(request, "my_bookings.html", {
         "bookings": upcoming_bookings,
         "upcoming_bookings": upcoming_bookings,
         "past_bookings": past_bookings,
         "cancelled_bookings": cancelled_bookings,
+        "profile_form": profile_form,
     })
+
+@login_required
+@require_POST
+def update_profile(request):
+    form = ProfileUpdateForm(request.POST, instance=request.user)
+
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Your personal information has been updated")
+    else:
+        messages.warning(request, "Your personal information could not be updated. Please check the form.")
+    
+    return redirect("my_bookings")
