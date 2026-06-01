@@ -30,6 +30,8 @@
                     {% endfor %}
                 </select>
 
+                <input type="date" name="date" class="filter-select" value="{{ selected_date }}">
+
                 <button type="submit" class="filter-btn">Filter</button>
 
                 <a href="{% url 'classes_list' %}" class="clear-filter-btn">Clear</a>
@@ -48,7 +50,11 @@
                                 <div class="classes-card-left">
                                     <p><strong>{{ fitness_class.start_time|date:"H:i" }} - {{ fitness_class.end_time|date:"H:i" }}</strong></p>
                                     <p>{{ fitness_class.class_type.duration_minutes }} minutes</p>
-                                    <p>{{ fitness_class.spots_remaining }} available spots</p>
+                                    {% if fitness_class.is_full %}
+                                        <p class="spots-remaining">No available spots</p>
+                                    {% else %}
+                                        <p class="spots-remaining">{{ fitness_class.spots_remaining }} available spots</p>
+                                    {% endif %}
                                 </div>
 
                                 <div class="classes-card-middle">
@@ -58,23 +64,30 @@
                                 </div>
 
                                 <div class="classes-card-right">
-                                    {% if user.is_authenticated %}
+                                    {% if fitness_class.status != "scheduled"%}
+                                        <span class="btn warning-btn">Unavailable</span>
+
+                                    {% elif user.is_authenticated %}
                                         {% if fitness_class.id in booked_class_ids %}
-                                            <span class="booked-btn">Booked</span>
+                                            <span class="btn booked-btn">Booked</span>
+
                                         {% elif fitness_class.is_full %}
-                                            <span class="full-btn">Full</span>
+                                            <span class="btn warning-btn">Full</span>
+
                                         {% else %}
                                             <form action="{% url 'book_class' fitness_class.id %}" method="post">
                                                 {% csrf_token %}
+                                                <input type="hidden" name="confirm" value="true">
                                                 <input type="hidden" name="next" value="classes_list">
-                                                <button type="submit" class="book-btn">Book</button>
+                                                <button type="submit" class="btn primary-btn">Book</button>
                                             </form>
                                         {% endif %}
+
                                     {% else %}
-                                         <a href="{% url 'login' %}" class="book-btn">Log In</a>
+                                         <a href="{% url 'login' %}" class="btn primary-btn">Log In</a>
                                     {% endif %}
 
-                                    <a href="{% url 'class_detail' fitness_class.id %}" class="details-btn">Details</a>
+                                    <a href="{% url 'class_detail' fitness_class.id %}" class="btn secondary-btn">Details</a>
                                 </div>
                             </div>
                             
@@ -82,7 +95,11 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <p>No classes available.</p>
+                {% if selected_date %}
+                    <p class="empty-state">No classes available for this date.</p>
+                {% else %}
+                    <p class="empty-state">No classes available.</p>
+                {% endif %}
             {% endif %}
         </div>
     </section>

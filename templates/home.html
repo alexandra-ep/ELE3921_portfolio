@@ -34,11 +34,15 @@
                             </h3>
                             <p><strong>{{ fitness_class.class_type.name}}</strong></p>
                             <p><i class="fa-solid fa-clock"></i>{{ fitness_class.start_time|date:"H:i" }} - {{ fitness_class.end_time|date:"H:i" }}</p>
-                            <p>{{ fitness_class.spots_remaining }} available spots</p>
+                            {% if fitness_class.is_full %}
+                                <p class="spots-remaining">No available spots</p>
+                            {% else %}
+                                <p class="spots-remaining">{{ fitness_class.spots_remaining }} available spots</p>
+                            {% endif %}
                         </div>
                     </a>
                 {% empty %}
-                    <p>No upcoming classes at the moment. Check back later!</p>
+                    <p class="empty-state empty-state-home">No upcoming classes at the moment. Check back later!</p>
                 {% endfor %}
             </div>
         </div>

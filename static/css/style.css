@@ -6,10 +6,6 @@
     --color-primary: #efefef;
     --color-secondary: #1d323e;
     --color-confirmation: #4f7f5d;
-    --color-booking: #935122;
-    --color-booking-hover: #b06d3e;
-    --color-danger: #932238;
-    --color-danger-hover: #c03954;
     --color-nav-dark: rgba(0, 0, 0, 0.5);
     --color-nav-light: rgba(2, 45, 69, 0.75);
     --color-nav-links: rgba(254, 254, 254, 0.1);
@@ -232,6 +228,17 @@ footer {
 /* ==============================
    5. Messages
    ============================== */
+.empty-state {
+    font-size: 14px;
+    margin-top: 20px;
+    color: var(--color-secondary);
+    font-weight: bold;
+}
+
+.empty-state.empty-state-home {
+    text-align: center;
+}
+
 .messages {
     padding: 40px 40px 0 40px;
 }
@@ -264,11 +271,56 @@ footer {
     color: #f3eeee;
 }
 
+.message-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.message-popup {
+    position: relative;
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+    width: 100%;
+    max-width: 420px;
+    padding: 35px 30px;
+    border-radius: var(--radius-main);
+    text-align: center;
+    box-shadow: var(--shadow-card);
+}
+
+.message-popup h2 {
+    color: var(--color-secondary);
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.message-popup p {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.message-popup-close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--color-secondary);
+    font-size: 26px;
+    cursor: pointer;
+}
+
 
 /* ==============================
    6. Buttons
    ============================== */
-   /*
 .btn {
     display: inline-flex;
     justify-content: center;
@@ -287,7 +339,52 @@ footer {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     cursor: pointer;
 }
-    */
+
+.dts-btn {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.primary-btn {
+    background-color: #935122;
+    color: #efecec;
+}
+
+.primary-btn:hover {
+    background-color: #b06d3e;
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background-color: #efecec;
+    color: #1d323e;
+}
+
+.secondary-btn:hover {
+    background-color: #a8a2a2;
+    transform: translateY(-2px);
+}
+
+.warning-btn {
+    background-color: #932238;
+    color: #efecec;
+}
+
+.warning-btn:hover {
+    background-color: #c03954;
+    transform: translateY(-2px);
+}
+
+.booked-btn {
+    background-color: #1b6d64;
+    color: #efecec;
+    cursor: default;
+}
+
+.locked-btn {
+    background-color: rgb(79, 79, 79);
+    cursor: default;
+}
 
 /* ==============================
    7. Home page
@@ -323,14 +420,14 @@ footer {
 }
 
 .login, .register {
-    background: rgba(239, 236, 236, 0.85);
+    background: rgba(0, 0, 0, 0.5);
     color: var(--color-primary);
     font-size: 15px;
     font-weight: bold;
     text-decoration: none;
     padding: 8px 20px;
     margin: 7px;
-    border-radius: 5px;
+    border-radius: var(--radius-main);
     border: 2px solid #efecec;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.75);
     transition: opacity 0.2s ease;
@@ -516,7 +613,7 @@ footer {
     color: var(--color-primary);
     display: flex;
     justify-content: space-between;
-    align-content: center;
+    align-items: center;
     gap: 40px;
 }
 
@@ -548,64 +645,6 @@ footer {
     font-size: 14px;
 }
 
-.book-btn,
-.details-btn,
-.booked-btn,
-.full-btn {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    padding: 10px 20px;
-    width: 100px;
-    height: 50px;
-    border-radius: 5px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    font-size: 14px;
-    box-sizing: border-box;
-    border: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-}
-
-.details-btn {
-    background-color: #efecec;
-    color: #1d323e;
-}
-
-.details-btn:hover {
-    background-color: #a8a2a2;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-}
-
-.book-btn {
-    background-color: #935122;
-    color: #efecec;
-    cursor: pointer;
-}
-
-.book-btn:hover {
-    background-color: #b06d3e;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-}
-
-.booked-btn {
-    background-color: #1b6d64;
-    color: #efecec;
-    cursor: default;
-}
-
-.full-btn {
-    background-color: #932238;
-    color: #efecec;
-    cursor: default;
-}
-
-
 
 /* ==============================
    8. Classes Detail Page
@@ -630,13 +669,13 @@ footer {
     margin-right: 8px;
 }
 
+.class-details-description {
+    margin-bottom: 40px;
+}
+
 .spots-remaining {
     font-weight: bold;
-    color: var(--color-primary);
-    display: flex;
-    align-items: center;
-    padding: 20px 0 20px 0;
-    margin: 0;
+    color: #ffffff;
 }
 
 .spots-remaining i {
@@ -653,65 +692,7 @@ footer {
     color: var(--color-primary);
     
 }
-   /*
-.class-details-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 30px;
-    margin-bottom: 30px;
-}
 
-.class-details-header h1 {
-    font-size: 24px;
-}
-
-.class-details-header-right {
-    display: flex;
-    gap: 40px;
-    font-size: 20px;
-    font-family: 'Horizon', sans-serif;
-    color: #1d323e;
-}
-
-.class-details-card {
-    background-color: #1d323e;
-    border-radius: 5px;
-    padding: 40px 70px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-}
-
-.class-details-left p {
-    font-size: 16px;
-}
-
-.class-details-right {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.class-details-left,
-.class-details-right {
-    flex: 1 1 380px;
-    color: #efecec;
-    font-size: 14px;
-    margin: 0 0 20px 0;
-}
-
-.class-details-link a {
-    text-decoration: none;
-    color: #1d323e;
-    font-family: 'Horizon', sans-serif;
-}
-
-.class-details-link a i {
-    padding-left: 10px;
-}
-*/
 .booking-message {
     margin: 25px 0 15px 0;
     font-size: 14px;
@@ -728,45 +709,6 @@ footer {
     border: solid 2px white;
     padding: 15px;
     border-radius: 5px;
-}
-
-.book-detail-btn,
-.cancel-btn {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 50px;
-    padding: 10px 20px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-    text-decoration: none;
-    cursor: pointer;
-    box-sizing: border-box;
-    transition: background-color 0.2s ease;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
-
-.book-detail-btn {
-    background-color: #935122;
-    color: #efecec;
-}
-
-.book-detail-btn:hover {
-    background-color: #b06d3e;
-}
-
-.cancel-btn {
-    background-color: #932238;
-    color: #efecec;
-}
-
-.cancel-btn:hover {
-    background-color: #c03954;
 }
 
 .details-hero{
@@ -917,7 +859,7 @@ footer {
     color: #efecec;
     display: flex;
     justify-content: space-between;
-    align-content: center;
+    align-items: center;
     gap: 40px;
 }
 
@@ -967,32 +909,6 @@ footer {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     cursor: pointer;
-}
-
-.bookings-details-btn {
-    background-color: #efecec;
-    color: #1d323e;
-}
-
-.bookings-details-btn:hover {
-    background-color: #a8a2a2;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-}
-
-.locked-btn {
-    background-color: rgb(79, 79, 79);
-}
-
-.bookings-cancel-btn {
-    background-color: #932238;
-    color: #efecec;
-}
-
-.bookings-cancel-btn:hover {
-    background-color: #c03954;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .bookings-hero {
@@ -1100,6 +1016,7 @@ footer {
 
 .auth-error {
     margin-bottom: 20px;
+    margin-top: 25px;
     color: #1d323e;
     font-size: 12px;
     font-weight: bold;
@@ -1151,7 +1068,7 @@ footer {
     height: 55px;
     border: none;
     border-radius: 5px;
-    background-color: #1d323e;
+    background-color: var(--color-secondary);
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
@@ -1159,17 +1076,30 @@ footer {
     font-family: 'Montserrat', sans-serif;
     color: #efecec;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease;
 }
 
 .auth-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    background: #2a4859;
+}
+
+.auth-register-link {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-secondary);
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+    transition: opacity 0.2s ease;
+}
+
+.auth-register-link:hover {
+    opacity: 0.65;
 }
 
 .auth-link {
     display: inline-block;
-    margin-top: 120px;
+    margin-top: 80px;
     font-size: 16px;
     font-family: 'Horizon', sans-serif;
     color: #1d323e;
@@ -1734,7 +1664,7 @@ footer {
 
     .auth-link {
         font-size: 16px;
-        margin-top: 90px;
+        margin-top: 70px;
     }
 
 
@@ -1808,7 +1738,7 @@ footer {
 
     .auth-error {
         font-size: 14px;
-        margin-top: 15px;
+        margin-top: 25px;
     }
 
 
@@ -1822,3 +1752,6 @@ footer {
 /* ==============================
    14. Responsive Design - Tablet
    ============================== */
+@media (min-width: 769px) and (max-width: 1023px) {
+
+}

@@ -50,13 +50,25 @@
 
             <main class="content">
                 {% if messages %}
-                <div class="messages">
-                    <div class="messages-container">
-                        {% for message in messages%}
-                        <div class="message {{ message.tags }}">{{ message }}</div>
-                        {% endfor %}
-                    </div>
-                </div>
+                    {% for message in messages %}
+                        {% if "registration-popup" in message.tags %}
+                            <div class="message-popup-overlay">
+                                <div class="message-popup {{ message.tags }}">
+                                    <button type="button" class="message-popup-close" onclick="this.closest('.message-popup-overlay').remove()">
+                                        &times;
+                                    </button>
+                                    <h3>Welcome to ELEVATE</h3>
+                                    <p>{{ message }}</p>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="messages">
+                                <div class="messages-container">
+                                    <div class="message {{ message.tags }}">{{ message }}</div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
 
                 {% block content %}

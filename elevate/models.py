@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import timedelta
 from django.utils import timezone
+from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
+from django.db.models import Q
 
 #Instructor
 class Instructor(models.Model):
@@ -31,8 +34,8 @@ class ClassType(models.Model):
     category = models.ForeignKey(ClassCategory, on_delete=models.CASCADE, related_name="class_types")
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    default_capacity = models.PositiveIntegerField()
-    duration_minutes = models.PositiveIntegerField()
+    default_capacity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
+    duration_minutes = models.PositiveIntegerField(validators=[MinValueValidator(1)])
 
     class Meta:
         unique_together = ('category', 'name')
@@ -78,7 +81,7 @@ class FitnessClass(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name="fitness_classes")
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    capacity = models.PositiveIntegerField()
+    capacity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='scheduled')
 
     class Meta:
@@ -87,6 +90,10 @@ class FitnessClass(models.Model):
 
     def __str__(self):
         return f"{self.class_type.name} - {self.start_time.strftime('%d.%m.%Y %H:%M')}"
+    
+    def clean(self):
+        if self.end_time <= self.start_time:
+            raise ValidationError("End time must be after start time.")
     
     def active_bookings_count(self):
         return self.bookings.filter(status='active').count()
@@ -116,7 +123,11 @@ class Booking(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['user', 'fitness_class'], name='unique_user_class_booking')
+            models.UniqueConstraint(
+                fields=["user", "fitness_class"],
+                condition=Q(status="active"),
+                name="unique_active_user_class_booking"
+            )
         ]
     
     def __str__(self):

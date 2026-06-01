@@ -21,21 +21,29 @@
 
                 <div class="class-details-right">
                     <p class="class-details-description">{{ fitness_class.class_type.description }}</p>
-                    <p class="spots-remaining"><i class="fa-solid fa-users-line"></i> {{ fitness_class.spots_remaining }} available spots</p>
+                    {% if fitness_class.is_full %}
+                        <p class="spots-remaining"><i class="fa-solid fa-users-line"></i> Availability: Full</p>
+                    {% else %}
+                        <p class="spots-remaining"><i class="fa-solid fa-users-line"></i> {{ fitness_class.spots_remaining }} available spots</p>
+                    {% endif %}
 
                     {% if user.is_authenticated %}
                         {% if user_booking %}
                             <p class="booking-message">You have already booked this class.</p>
 
                             {% if fitness_class.can_cancel %}
-                                <form method="post" action="{% url 'cancel_booking' fitness_class.id %}" onsubmit="return confirm('Are you sure you want to cancel this booking?');">
+                                <form method="post" action="{% url 'cancel_booking' user_booking.id %}" onsubmit="return confirm('Are you sure you want to cancel this booking?');">
                                     {% csrf_token %}
+                                    <input type="hidden" name="confirm_cancel" value="true">
                                     <input type="hidden" name="next" value="class_detail">
-                                    <button type="submit" class="cancel-btn">Cancel Booking</button>
+                                    <button type="submit" class="btn warning-btn dts-btn">Cancel Booking</button>
                                 </form>
                             {% else %}
                                 <p class="booking-message cancellation-msg"><i class="fa-solid fa-triangle-exclamation"></i>This booking can no longer be cancelled because it is less than 3 hours until the class starts.</p>
                             {% endif %}
+
+                        {% elif fitness_class.status != "scheduled" %}
+                            <p class="booking-message">This class is no longer available for booking.</p>
 
                         {% elif fitness_class.is_full %}
                             <p class="booking-message">Sorry, the class is full.</p>
@@ -43,16 +51,19 @@
                         {% else %}
                             <form method="post" action="{% url 'book_class' fitness_class.id %}">
                                 {% csrf_token %}
+                                <input type="hidden" name="confirm" value="true">
                                 <input type="hidden" name="next" value="class_detail">
-                                <button type="submit" class="book-detail-btn">Book Class</button>
+                                <button type="submit" class="btn primary-btn dts-btn">Book Class</button>
                             </form>
                         {% endif %}
 
                     {% else %}
-                        {% if fitness_class.is_full %}
+                        {% if fitness_class.status != "scheduled" %}
+                            <p class="booking-message">This class is no longer available for booking.</p>
+                        {% elif fitness_class.is_full %}
                             <p class="booking-message">Sorry, the class is full.</p>
                         {% else %}
-                            <a href="{% url 'login' %}" class="book-detail-btn">Log in to book</a>
+                            <a href="{% url 'login' %}" class="btn primary-btn dts-btn">Log in to book</a>
                         {% endif %}
                     {% endif %}
                 </div>

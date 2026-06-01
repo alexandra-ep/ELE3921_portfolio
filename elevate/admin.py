@@ -57,6 +57,8 @@ class FitnessClassAdmin(admin.ModelAdmin):
         "location__name",
     )
     ordering = ("start_time",)
+    date_hierarchy = "start_time"
+    list_select_related = ("class_type", "instructor", "location")
 
 
 @admin.register(Booking)
@@ -70,4 +72,5 @@ class BookingAdmin(admin.ModelAdmin):
         "fitness_class__class_type__name",
     )
     ordering = ("-created_at",)
+    list_select_related = ("user", "fitness_class")
 

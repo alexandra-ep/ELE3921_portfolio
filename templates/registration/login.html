@@ -23,6 +23,7 @@
 
                     <form method="post" class="auth-form-element">
                         {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ next }}">
 
                         <div class="auth-field">
                             <label for="{{ form.username.id_for_label }}">Username:</label>
@@ -35,6 +36,8 @@
                         </div>
 
                         <button type="submit" class="auth-btn">Log In</button>
+
+                        <a href="{% url 'register' %}" class="auth-register-link">New user? Create account here.</a>
 
                     </form>
 

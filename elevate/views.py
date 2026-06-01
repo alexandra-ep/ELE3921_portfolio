@@ -1,15 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.forms import UserCreationForm
+from .forms import RegisterForm, BookingForm, CancelBookingForm
 from django.utils import timezone
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.decorators.http import require_POST
 from .models import FitnessClass, Instructor, Booking, ClassCategory, Location
 
 
 def home(request):
     upcoming_classes = FitnessClass.objects.filter(
-        start_time__gte=timezone.now()
+        start_time__gte=timezone.now(),
+        status="scheduled"
     ).order_by('start_time')[:3]
 
     return render(request, 'home.html', {
@@ -18,19 +20,26 @@ def home(request):
 
 
 def classes_list(request):
-    classes = FitnessClass.objects.all().order_by("start_time")
+    classes = FitnessClass.objects.filter(
+        start_time__gte=timezone.now(),
+        status="scheduled"
+    ).order_by("start_time")
 
     categories = ClassCategory.objects.all().order_by("name")
     locations = Location.objects.all().order_by("name")
 
     selected_category = request.GET.get("category")
     selected_location = request.GET.get("location")
+    selected_date = request.GET.get("date")
 
     if selected_category:
         classes = classes.filter(class_type__category_id=selected_category)
     
     if selected_location:
         classes = classes.filter(location_id=selected_location)
+
+    if selected_date:
+        classes = classes.filter(start_time__date=selected_date)
 
     booked_class_ids = []
 
@@ -47,7 +56,8 @@ def classes_list(request):
         "locations": locations,
         "selected_category": selected_category,
         "selected_location": selected_location,
-})
+        "selected_date": selected_date,
+    })
 
 def instructors_list(request):
     instructors = Instructor.objects.all().order_by("last_name")
@@ -62,7 +72,8 @@ def class_detail(request, class_id):
     if request.user.is_authenticated:
         user_booking = Booking.objects.filter(
             user=request.user,
-            fitness_class=fitness_class
+            fitness_class=fitness_class,
+            status="active"
         ).first()
     
     return render(request, "class_detail.html", {
@@ -73,48 +84,59 @@ def class_detail(request, class_id):
 
 def register(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        first_name = request.POST.get("first_name")
-        last_name = request.POST.get("last_name")
-        email = request.POST.get("email")
+        form = RegisterForm(request.POST)
 
         if form.is_valid():
-            user = form.save(commit=False)
-            user.first_name = first_name
-            user.last_name = last_name
-            user.email = email
-            user.save()
+            user = form.save()
 
             login(request, user)
+            messages.success(
+                request, 
+                "Your account has been created successfully. You are now logged in.",
+                extra_tags="registration-popup"
+            )
 
             return redirect("home")
     else:
-        form = UserCreationForm()
+        form = RegisterForm()
     
     return render (request, "registration/register.html", {"form": form})
 
 
  
 @login_required
+@require_POST
 def book_class(request, class_id):
     fitness_class = get_object_or_404(FitnessClass, id=class_id)
+    form = BookingForm(request.POST)
 
     # Check if user already booked this class
     existing_booking = Booking.objects.filter(
         user=request.user,
-        fitness_class=fitness_class
+        fitness_class=fitness_class,
+        status="active"
     ).exists()
 
-    if existing_booking:
+    if not form.is_valid():
+        messages.warning(request, "Invalid booking request.")
+
+    elif fitness_class.start_time <= timezone.now():
+        messages.warning(request, "You cannot book a class that has already started or passed.")
+    
+    elif fitness_class.status != "scheduled":
+        messages.warning(request, "This class is not available for booking.")
+    
+    elif existing_booking:
         messages.warning(request, "You have already booked this class.")
 
     elif fitness_class.is_full():
-        messages.warning(request, "Sorry, this class is full.")
+        messages.warning(request, "Sorry, this class is fully booked.")
 
     else:
         Booking.objects.create(
             user=request.user,
-            fitness_class=fitness_class
+            fitness_class=fitness_class,
+            status="active"
         )
         messages.success(request, "Your class has been booked successfully.")
     
@@ -127,24 +149,29 @@ def book_class(request, class_id):
 
 
 @login_required
-def cancel_booking(request, class_id):
-    fitness_class = get_object_or_404(FitnessClass, id=class_id)
-
-    booking = Booking.objects.filter(
+@require_POST
+def cancel_booking(request, booking_id):
+    booking = get_object_or_404(
+        Booking,
+        id=booking_id,
         user=request.user,
-        fitness_class=fitness_class
-    ).first()
+        status="active"
+    )
 
+    fitness_class = booking.fitness_class
     next_page = request.POST.get("next")
+    form = CancelBookingForm(request.POST)
 
-    if booking:
-        if fitness_class.can_cancel():
-            booking.delete()
-            messages.success(request, "Your booking has been cancelled.")
-        else:
-            messages.warning(request, "You cannot cancel this booking within 3 hours of the class start time.")
+    if not form.is_valid():
+        messages.warning(request, "Invalid cancellation request.")
+
+    elif fitness_class.can_cancel():
+        booking.status = "cancelled"
+        booking.save()
+        messages.success(request, "Your booking has been cancelled.")
+        
     else:
-        messages.warning(request, "No booking was found for this class.")
+        messages.warning(request, "You cannot cancel this booking within 3 hours of the class start time.")
 
     if next_page == "my_bookings":
         return redirect("my_bookings")
@@ -157,8 +184,9 @@ def cancel_booking(request, class_id):
 
 @login_required
 def my_bookings(request):
-    bookings = Booking.objects.filter(
+    upcoming_bookings = Booking.objects.filter(
         user=request.user,
+        status="active",
         fitness_class__start_time__gte=timezone.now()
     ).select_related(
         "fitness_class",
@@ -167,4 +195,30 @@ def my_bookings(request):
         "fitness_class__location"
     ).order_by("fitness_class__start_time")
 
-    return render(request, "my_bookings.html", {"bookings": bookings})
+    past_bookings = Booking.objects.filter(
+        user=request.user,
+        status="active",
+        fitness_class__start_time__lt=timezone.now()
+    ).select_related(
+        "fitness_class",
+        "fitness_class__class_type",
+        "fitness_class__instructor",
+        "fitness_class__location"
+    ).order_by("-fitness_class__start_time")
+
+    cancelled_bookings = Booking.objects.filter(
+        user=request.user,
+        status="cancelled"
+    ).select_related(
+        "fitness_class",
+        "fitness_class__class_type",
+        "fitness_class__instructor",
+        "fitness_class__location"
+    ).order_by("-fitness_class__start_time")
+
+    return render(request, "my_bookings.html", {
+        "bookings": upcoming_bookings,
+        "upcoming_bookings": upcoming_bookings,
+        "past_bookings": past_bookings,
+        "cancelled_bookings": cancelled_bookings,
+    })

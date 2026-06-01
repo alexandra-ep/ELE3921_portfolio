@@ -33,16 +33,17 @@
 
                                 <div class="bookings-card-right">
                                     {% if booking.fitness_class.can_cancel %}
-                                        <form method="post" action="{% url 'cancel_booking' booking.fitness_class.id %}" onsubmit="return confirm('Are you sure you want to cancel this booking?');">
+                                        <form method="post" action="{% url 'cancel_booking' booking.id %}" onsubmit="return confirm('Are you sure you want to cancel this booking?');">
                                             {% csrf_token %}
+                                            <input type="hidden" name="confirm_cancel" value="true">
                                             <input type="hidden" name="next" value="my_bookings">
-                                            <button type="submit" class="bookings-cancel-btn">Cancel</button>
+                                            <button type="submit" class="btn warning-btn">Cancel</button>
                                         </form>
                                     {% else %}
-                                        <span class="locked-btn">Locked</span>
+                                        <span class="btn locked-btn">Locked</span>
                                     {% endif %}
 
-                                    <a href="{% url 'class_detail' booking.fitness_class.id %}" class="bookings-details-btn">
+                                    <a href="{% url 'class_detail' booking.fitness_class.id %}" class="btn secondary-btn">
                                         Details
                                     </a>
                                 </div>
@@ -52,7 +53,7 @@
                 </div>
 
             {% else %}
-                <p class="bookings-msg">You have no upcoming bookings yet.</p>
+                <p class="empty-state">You have no upcoming bookings yet.</p>
             {% endif %}
         </div>
     </section>
