@@ -343,7 +343,7 @@ footer {
     align-items: center;
     text-decoration: none;
     padding: 10px 20px;
-    width: 100px;
+    min-width: 120px;
     min-height: 50px;
     border-radius: var(--radius-main);
     font-family: 'Montserrat', sans-serif;
