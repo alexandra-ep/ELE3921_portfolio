@@ -65,29 +65,29 @@
 
                                 <div class="classes-card-right">
                                     {% if fitness_class.status != "scheduled"%}
-                                        <span class="btn warning-btn">Unavailable</span>
+                                        <span class="btn warning-btn rsp-btn">Unavailable</span>
 
                                     {% elif user.is_authenticated %}
                                         {% if fitness_class.id in booked_class_ids %}
-                                            <span class="btn booked-btn dts-btn">Booked</span>
+                                            <span class="btn booked-btn rsp-btn">Booked</span>
 
                                         {% elif fitness_class.is_full %}
-                                            <span class="btn warning-btn dts-btn">Full</span>
+                                            <span class="btn warning-btn rsp-btn">Full</span>
 
                                         {% else %}
                                             <form action="{% url 'book_class' fitness_class.id %}" method="post">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="confirm" value="true">
                                                 <input type="hidden" name="next" value="classes_list">
-                                                <button type="submit" class="btn primary-btn dts-btn">Book</button>
+                                                <button type="submit" class="btn primary-btn rsp-btn">Book</button>
                                             </form>
                                         {% endif %}
 
                                     {% else %}
-                                         <a href="{% url 'login' %}" class="btn primary-btn dts-btn">Log In</a>
+                                         <a href="{% url 'login' %}" class="btn primary-btn rsp-btn">Log In</a>
                                     {% endif %}
 
-                                    <a href="{% url 'class_detail' fitness_class.id %}" class="btn secondary-btn dts-btn">Details</a>
+                                    <a href="{% url 'class_detail' fitness_class.id %}" class="btn secondary-btn rsp-btn">Details</a>
                                 </div>
                             </div>
                             
