@@ -49,6 +49,9 @@ class FitnessClassAdmin(admin.ModelAdmin):
         "spots_remaining",
         "is_full",
     )
+    fields = ("class_type", "instructor", "location", "start_time", "end_time", "capacity", "status")
+    readonly_fields = ("end_time",)
+
     list_filter = ("status", "location", "class_type", "instructor")
     search_fields = (
         "class_type__name",
@@ -56,6 +59,7 @@ class FitnessClassAdmin(admin.ModelAdmin):
         "instructor__last_name",
         "location__name",
     )
+    
     ordering = ("start_time",)
     date_hierarchy = "start_time"
     list_select_related = ("class_type", "instructor", "location")

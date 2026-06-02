@@ -35,6 +35,22 @@ h1, h2, h3 {
     color: var(--color-secondary);
 }
 
+h1 {
+    font-size: 26px;
+}
+
+h2 {
+    font-size: 22px;
+}   
+
+h3 {
+    font-size: 20px;
+}
+
+p {
+    font-size: 13px;
+}
+
 html, body {
     height: 100%;
     margin: 0;
@@ -540,7 +556,6 @@ footer {
    ============================== */
 .classes-container h1 {
     margin-bottom: 30px;
-    font-size: 28px;
 }
 
 .classes-filter-form {
@@ -601,7 +616,6 @@ footer {
 .classes-card-date h2 {
     margin: 0 0 8px 0;
     color: var(--color-primary);
-    font-size: 20px;
 }
 
 .classes-card-content {
@@ -637,7 +651,6 @@ footer {
 .classes-card-left p,
 .classes-card-middle p {
     margin: 8px 0;
-    font-size: 14px;
 }
 
 
@@ -651,7 +664,7 @@ footer {
 }
 
 .class-details-left {
-    flex: 0 0 480px;
+    flex: 0 0 380px;
 
 }
 
@@ -671,6 +684,7 @@ footer {
 .spots-remaining {
     font-weight: bold;
     color: #ffffff;
+    margin-bottom: 30px;
 }
 
 .spots-remaining i {
@@ -685,7 +699,16 @@ footer {
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     border-radius: var(--radius-main);
     color: var(--color-primary);
-    
+}
+
+.class-details-right button .rsp-btn,
+.class-details-right .rsp-btn {
+    width: 100%;
+}
+
+.bookings-card-date h3 {
+    color: var(--color-primary);
+    margin: 0 0 8px 0;
 }
 
 .booking-message {
@@ -746,7 +769,6 @@ footer {
    ============================== */
 .instructors-container h1 {
     margin-bottom: 30px;
-    font-size: 28px;
 }
 
 .instructors-grid {
@@ -806,13 +828,7 @@ footer {
     max-width: 420px;
     line-height: 1.5;
     margin: 0 auto;
-    font-size: 14px;
     color: #efecec;
-}
-
-.no-instructors {
-    font-size: 14px;
-    margin-top: 20px;
 }
 
 
@@ -821,7 +837,6 @@ footer {
    ============================== */
 .bookings-profile-header h1 {
     margin-bottom: 0;
-    font-size: 28px;
 }
 
 .bookings-profile-header {
@@ -852,10 +867,6 @@ footer {
     font-weight: bold;
     font-size: 14px;
     margin: 0 0 30px 0;
-}
-
-.bookings-container h2 {
-    font-size: 22px;
 }
 
 .bookings-list {
@@ -909,7 +920,6 @@ footer {
 .bookings-card-left p,
 .bookings-card-middle p {
     margin: 8px 0;
-    font-size: 14px;
 }
 
 .bookings-hero {
@@ -989,7 +999,6 @@ footer {
 
 .profile-popup-box h3 {
     color: var(--color-secondary);
-    font-size: 20px;
     margin-bottom: 25px;
 }
 
@@ -1114,19 +1123,19 @@ footer {
 }
 
 .auth-form-box h1 {
-    font-size: 28px;
     margin-bottom: 20px;
 }
 
 .auth-error {
     margin-bottom: 20px;
     margin-top: 25px;
-    color: #1d323e;
-    font-size: 12px;
+    color: var(--color-primary);
     font-weight: bold;
-    border: 2px solid #1d323e;
+    border: 4px solid #935122;
+    background: #935122;
     border-radius: 5px;
     padding: 10px;
+    font-size: 14px;
 }
 
 .auth-error i {
@@ -1274,9 +1283,10 @@ footer {
 
 .auth-help-text {
     margin-top: 10px;
-    font-size: 12px;
     font-weight: bold;
     line-height: 1.5;
+    font-size: 13px;
+    color: var(--color-secondary);
 }
 
 
@@ -1284,9 +1294,30 @@ footer {
    14. Responsive Design - Mobile
    ============================== */
 @media (max-width: 769px) {
+    /* ==== Global Styles ====*/
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }   
+
+    h3 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
     .messages {
         padding: 40px 25px 0 25px;
         font-size: 12px;
+    }
+
+    .rsp-btn {
+        width: 100%;
     }
 
     /* ==== Navigation Bar ==== */
@@ -1408,7 +1439,6 @@ footer {
     }
 
     .classes-container h1 {
-        font-size: 20px;
         margin-bottom: 25px;
     }
 
@@ -1437,14 +1467,13 @@ footer {
     }
 
     .classes-card-date h2 {
-        font-size: 18px;
         margin-bottom: 18px;
     }
 
     .classes-card-content {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
+        gap: 15px;
     }
 
     .classes-card-left,
@@ -1455,7 +1484,6 @@ footer {
     .classes-card-left p,
     .classes-card-middle p {
         margin: 6px 0;
-        font-size: 14px;
     }
 
     .classes-card-right {
@@ -1485,29 +1513,15 @@ footer {
         padding: 0 25px;
     }
 
-    .class-details-left h1 {
-        font-size: 18px;
-    }
-
-    .class-details-left h2 {
-        font-size: 16px;
-    }
-
     .class-details-left,
     .class-details-right {
         flex: none;
         width: 100%;
         margin: 0;
-        font-size: 14px;
     }
 
     .class-details-right {
         padding: 25px 25px;
-    }
-
-    .class-details-left p,
-    .class-details-right p {
-        font-size: 14px;
     }
 
    .class-details-description {
@@ -1519,10 +1533,6 @@ footer {
         margin: 25px 0 15px 0;
         font-size: 15px;
         line-height: 1.4;
-    }
-
-    .dts-btn{
-        width: 100%;
     }
 
     .details-hero-overlay {
@@ -1545,7 +1555,6 @@ footer {
     }
 
     .instructors-container h1 {
-        font-size: 20px;
         margin-bottom: 30px;
     }
 
@@ -1576,7 +1585,6 @@ footer {
 
     .instructor-bio {
         max-width: 100%;
-        font-size: 14px;
     }
 
 
@@ -1591,7 +1599,6 @@ footer {
     }
 
     .bookings-container h1 {
-        font-size: 22px;
         margin-bottom: 18px;
     }
 
@@ -1608,9 +1615,8 @@ footer {
         padding: 25px 22px;
     }
 
-    .bookings-card-date h2 {
-        font-size: 18px;
-        margin-bottom: 18px;
+    .upcoming-bookings-title {
+        margin-bottom: 30px;
     }
 
     .bookings-card-content {
@@ -1626,7 +1632,6 @@ footer {
 
     .bookings-card-left p,
     .bookings-card-middle p {
-        font-size: 14px;
         margin: 6px 0;
     }
 
@@ -1712,7 +1717,6 @@ footer {
     }
 
     .auth-form-box h1 {
-        font-size: 20px;
         margin-bottom: 30px;
     }
 
@@ -1797,7 +1801,6 @@ footer {
     }
 
     .register-form-box h1 {
-        font-size: 20px;
         margin-bottom: 30px;
     }
 
@@ -1806,12 +1809,11 @@ footer {
     }
 
     .auth-help-text {
-        font-size: 12px;
         margin-top: 15px;
     }
 
     .auth-error {
-        font-size: 14px;
+        font-size: 13px;
         margin-top: 25px;
     }
 
@@ -1827,6 +1829,23 @@ footer {
    15. Responsive Design - Tablet
    ============================== */
 @media (min-width: 770px) and (max-width: 1023px) {
+    /* ==== Global Styles ====*/
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }   
+
+    h3 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
     /* ==== Navigation Bar ==== */
     .nav-links {
         gap: 18px;
@@ -1838,23 +1857,10 @@ footer {
         gap: 20px;
         padding: 0 25px;
     }
-    
-    .class-details h1 {
-        font-size: 22px;
-    }
-
-    .class-details h2 {
-        font-size: 20px;
-    }
 
     .class-details-left,
     .class-details-right {
         flex: 1;
-    }
-
-    .class-details-left p,
-    .class-details-right p {
-        font-size: 14px;
     }
 
    .class-details-description {
@@ -1866,9 +1872,5 @@ footer {
         margin: 25px 0 15px 0;
         font-size: 15px;
         line-height: 1.4;
-    }
-    
-    .rsp-btn {
-        width: 100%;
     }
 }

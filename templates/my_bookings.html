@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            <h2>My Upcoming Bookings</h2>
+            <h2 class="upcoming-bookings-title">My Upcoming Bookings</h2>
 
             {% if upcoming_bookings %}
                 <div class="bookings-list" data-booking-section="upcoming">
@@ -83,7 +83,7 @@
                         <div class="bookings-card {% if forloop.counter > 3 %}booking-card-hidden{% endif %}">
 
                             <div class="bookings-card-date">
-                                <h2>{{ booking.fitness_class.start_time|date:"l d.m." }}</h2>
+                                <h3>{{ booking.fitness_class.start_time|date:"l d.m." }}</h3>
                             </div>
 
                             <div class="bookings-card-content">
@@ -96,7 +96,7 @@
                                 <div class="bookings-card-middle">
                                     <p><strong>{{ booking.fitness_class.class_type.name }}</strong></p>
                                     <p><i class="fa-solid fa-user"></i> {{ booking.fitness_class.instructor }}</p>
-                                    <p><i class="fa-solid fa-location-dot"></i> {{ booking.fitness_class.location }}, {{ booking.fitness_class.location.address }}</p>
+                                    <p><i class="fa-solid fa-location-dot"></i> {{ booking.fitness_class.location }}, {{ booking.fitness_class.location.group }}</p>
                                 </div>
 
                                 <div class="bookings-card-right">
@@ -105,13 +105,13 @@
                                             {% csrf_token %}
                                             <input type="hidden" name="confirm_cancel" value="true">
                                             <input type="hidden" name="next" value="my_bookings">
-                                            <button type="submit" class="btn warning-btn dts-btn">Cancel</button>
+                                            <button type="submit" class="btn warning-btn rsp-btn">Cancel</button>
                                         </form>
                                     {% else %}
-                                        <span class="btn locked-btn dts-btn">Locked</span>
+                                        <span class="btn locked-btn rsp-btn">Locked</span>
                                     {% endif %}
 
-                                    <a href="{% url 'class_detail' booking.fitness_class.id %}" class="btn secondary-btn dts-btn">Details</a>
+                                    <a href="{% url 'class_detail' booking.fitness_class.id %}" class="btn secondary-btn rsp-btn">Details</a>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                     {% for booking in past_bookings %}
                         <div class="bookings-card {% if forloop.counter > 3 %}booking-card-hidden{% endif %}">
                             <div class="bookings-card-date">
-                                <h2>{{ booking.fitness_class.start_time|date:"l d.m." }}</h2>
+                                <h3>{{ booking.fitness_class.start_time|date:"l d.m." }}</h3>
                             </div>
 
                             <div class="bookings-card-content">
@@ -147,7 +147,7 @@
                                 <div class="bookings-card-middle">
                                     <p><strong>{{ booking.fitness_class.class_type.name }}</strong></p>
                                     <p><i class="fa-solid fa-user"></i> {{ booking.fitness_class.instructor }}</p>
-                                    <p><i class="fa-solid fa-location-dot"></i> {{ booking.fitness_class.location }}, {{ booking.fitness_class.location.address }}</p>
+                                    <p><i class="fa-solid fa-location-dot"></i> {{ booking.fitness_class.location }}, {{ booking.fitness_class.location.group }}</p>
                                 </div>
 
                                 <div class="bookings-card-right">
@@ -156,13 +156,13 @@
                                             {% csrf_token %}
                                             <input type="hidden" name="confirm_cancel" value="true">
                                             <input type="hidden" name="next" value="my_bookings">
-                                            <button type="submit" class="btn warning-btn">Cancel</button>
+                                            <button type="submit" class="btn warning-btn rsp-btn">Cancel</button>
                                         </form>
                                     {% else %}
-                                        <span class="btn locked-btn">Locked</span>
+                                        <span class="btn locked-btn rsp-btn">Locked</span>
                                     {% endif %}
 
-                                    <a href="{% url 'class_detail' booking.fitness_class.id %}" class="btn secondary-btn dts-btn">Details</a>
+                                    <a href="{% url 'class_detail' booking.fitness_class.id %}" class="btn secondary-btn rsp-btn">Details</a>
                                 </div>
                             </div>
                         </div>

@@ -91,9 +91,19 @@ class FitnessClass(models.Model):
     def __str__(self):
         return f"{self.class_type.name} - {self.start_time.strftime('%d.%m.%Y %H:%M')}"
     
+    def set_end_time_from_duration(self):
+        if self.class_type_id and self.start_time:
+            self.end_time = self.start_time + timedelta(minutes=self.class_type.duration_minutes)
+
     def clean(self):
+        self.set_end_time_from_duration()
+
         if self.end_time <= self.start_time:
             raise ValidationError("End time must be after start time.")
+        
+    def save(self, *args, **kwargs):
+        self.set_end_time_from_duration()
+        super().save(*args, **kwargs)
     
     def active_bookings_count(self):
         return self.bookings.filter(status='active').count()

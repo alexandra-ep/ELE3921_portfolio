@@ -14,7 +14,7 @@
                     <h2>{{ fitness_class.start_time|date:"H:i" }} - {{ fitness_class.end_time|date:"H:i" }}</h2>
                     <div class="class-details-left-info">
                         <p><i class="fa-solid fa-user"></i> <strong>{{ fitness_class.instructor }}</strong></p>
-                        <p><i class="fa-solid fa-location-dot"></i> <strong>{{ fitness_class.location }}, {{ fitness_class.location.address }}</strong></p>
+                        <p><i class="fa-solid fa-location-dot"></i> <strong>{{ fitness_class.location }}, {{ fitness_class.location.address }}, {{ fitness_class.location.group }}</strong></p>
                         <p><i class="fa-solid fa-clock"></i> <strong>{{ fitness_class.class_type.duration_minutes }} minutes</strong></p>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                                     {% csrf_token %}
                                     <input type="hidden" name="confirm_cancel" value="true">
                                     <input type="hidden" name="next" value="class_detail">
-                                    <button type="submit" class="btn warning-btn dts-btn rsp-btn">Cancel Booking</button>
+                                    <button type="submit" class="btn warning-btn rsp-btn">Cancel Booking</button>
                                 </form>
                             {% else %}
                                 <p class="booking-message cancellation-msg"><i class="fa-solid fa-triangle-exclamation"></i>This booking can no longer be cancelled because it is less than 3 hours until the class starts.</p>
@@ -53,7 +53,7 @@
                                 {% csrf_token %}
                                 <input type="hidden" name="confirm" value="true">
                                 <input type="hidden" name="next" value="class_detail">
-                                <button type="submit" class="btn primary-btn dts-btn rsp-btn">Book Class</button>
+                                <button type="submit" class="btn primary-btn rsp-btn">Book Class</button>
                             </form>
                         {% endif %}
 
@@ -63,7 +63,7 @@
                         {% elif fitness_class.is_full %}
                             <p class="booking-message">Sorry, the class is full.</p>
                         {% else %}
-                            <a href="{% url 'login' %}" class="btn primary-btn dts-btn rsp-btn">Log in to book</a>
+                            <a href="{% url 'login' %}" class="btn primary-btn rsp-btn">Log in to book</a>
                         {% endif %}
                     {% endif %}
                 </div>
