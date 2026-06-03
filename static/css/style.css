@@ -140,11 +140,18 @@ header {
 }
 
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
     background: var(--color-nav-dark);
+    padding: 0 40px;
+}
+
+.nav-container {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-content: center;
+    padding: 20px 0;
 }
 
 .nav-logo a {
@@ -578,7 +585,7 @@ footer {
     font-size: 14px;
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
-    box-shadow: var(--shadow-card);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
 }
 
 .filter-btn {
@@ -592,7 +599,7 @@ footer {
     font-weight: bold;
     font-family: 'Montserrat', sans-serif;
     cursor: pointer;
-    box-shadow: var(--shadow-card);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
 }
 
 .clear-filter-btn {
@@ -665,8 +672,9 @@ footer {
     flex-wrap: wrap;
 }
 
+
 .class-details-left {
-    flex: 0 0 380px;
+    flex: 0 0 460px;
 
 }
 
@@ -1330,8 +1338,12 @@ footer {
     }
 
     nav {
-        padding: 20px 24px;
+        padding: 0;
+    }
+
+    .nav-container {
         position: relative;
+        padding: 25px 25px;
     }
 
     .nav-logo a {
@@ -1352,7 +1364,7 @@ footer {
         flex-direction: column;
         align-items: center;
         gap: 15px;
-        padding: 20px 20px;
+        padding-bottom: 20px;
         display: none;
         z-index: 15;
     }
