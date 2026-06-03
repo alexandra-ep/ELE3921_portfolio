@@ -49,7 +49,7 @@
                             <p class="booking-message">Sorry, the class is full.</p>
 
                         {% else %}
-                            <form method="post" action="{% url 'book_class' fitness_class.id %}">
+                            <form method="post" action="{% url 'book_class' fitness_class.id %}" onsubmit="return window.confirm('Are you sure you want to book this class? You cannot cancel the class when it is less than 3 hours until the class starts.');">
                                 {% csrf_token %}
                                 <input type="hidden" name="confirm" value="true">
                                 <input type="hidden" name="next" value="class_detail">
