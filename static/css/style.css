@@ -693,6 +693,8 @@ footer {
 }
 
 .spots-remaining {
+    display: flex;
+    align-content: center;
     font-weight: bold;
     color: var(--color-primary);
     margin-bottom: 30px;

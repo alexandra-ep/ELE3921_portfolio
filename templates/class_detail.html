@@ -21,13 +21,23 @@
 
                 <div class="class-details-right">
                     <p class="class-details-description">{{ fitness_class.class_type.description }}</p>
-                    {% if fitness_class.is_full %}
+                    {% if fitness_class.status == "cancelled" %}
+                        <p class="spots-remaining"><i class="fa-solid fa-circle-xmark"></i> Status: Cancelled</p>
+                    {% elif fitness_class.status == "completed" %}
+                        <p class="spots-remaining"><i class="fa-solid fa-circle-check"></i> Status: Completed</p>
+                    {% elif fitness_class.is_full %}
                         <p class="spots-remaining"><i class="fa-solid fa-users-line"></i> Availability: Full</p>
                     {% else %}
                         <p class="spots-remaining"><i class="fa-solid fa-users-line"></i> {{ fitness_class.spots_remaining }} available spots</p>
                     {% endif %}
 
-                    {% if user.is_authenticated %}
+                    {% if fitness_class.status == "cancelled" %}
+                        <p class="booking-message">This class has been cancelled, and it can no longer be booked.</p>
+
+                    {% elif fitness_class.status == "completed" %}
+                        <p class="booking-message">This class has already been completed, and can no longer be booked.</p>
+
+                    {% elif user.is_authenticated %}
                         {% if user_booking %}
                             <p class="booking-message">You have already booked this class.</p>
 
@@ -42,9 +52,6 @@
                                 <p class="booking-message cancellation-msg"><i class="fa-solid fa-triangle-exclamation"></i>This booking can no longer be cancelled because it is less than 3 hours until the class starts.</p>
                             {% endif %}
 
-                        {% elif fitness_class.status != "scheduled" %}
-                            <p class="booking-message">This class is no longer available for booking.</p>
-
                         {% elif fitness_class.is_full %}
                             <p class="booking-message">Sorry, the class is full.</p>
 
@@ -58,9 +65,7 @@
                         {% endif %}
 
                     {% else %}
-                        {% if fitness_class.status != "scheduled" %}
-                            <p class="booking-message">This class is no longer available for booking.</p>
-                        {% elif fitness_class.is_full %}
+                        {% if fitness_class.is_full %}
                             <p class="booking-message">Sorry, the class is full.</p>
                         {% else %}
                             <a href="{% url 'login' %}" class="btn primary-btn rsp-btn">Log in to book</a>

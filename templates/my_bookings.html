@@ -151,17 +151,11 @@
                                 </div>
 
                                 <div class="bookings-card-right">
-                                    {% if booking.fitness_class.can_cancel %}
-                                        <form method="post" action="{% url 'cancel_booking' booking.id %}" onsubmit="return confirm('Are you sure you want to cancel this booking?');">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="confirm_cancel" value="true">
-                                            <input type="hidden" name="next" value="my_bookings">
-                                            <button type="submit" class="btn warning-btn rsp-btn">Cancel</button>
-                                        </form>
-                                    {% else %}
+                                    {% if booking.fitness_class.status == "cancelled" %}
+                                        <span class="btn locked-btn rsp-btn">Cancelled</span>
+                                    {% elif booking.fitness_class.status == "completed" %}
                                         <span class="btn locked-btn rsp-btn">Completed</span>
                                     {% endif %}
-
                                     <a href="{% url 'class_detail' booking.fitness_class.id %}" class="btn secondary-btn rsp-btn">Details</a>
                                 </div>
                             </div>

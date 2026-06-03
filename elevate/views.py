@@ -195,6 +195,7 @@ def my_bookings(request):
     upcoming_bookings = Booking.objects.filter(
         user=request.user,
         status="active",
+        fitness_class__status="scheduled",
         fitness_class__start_time__gte=timezone.now()
     ).select_related(
         "fitness_class",
@@ -203,10 +204,10 @@ def my_bookings(request):
         "fitness_class__location"
     ).order_by("fitness_class__start_time")
 
-    past_bookings = Booking.objects.filter(
+    completed_bookings = Booking.objects.filter(
         user=request.user,
         status="active",
-        fitness_class__start_time__lt=timezone.now()
+        fitness_class__status="completed"
     ).select_related(
         "fitness_class",
         "fitness_class__class_type",
@@ -214,15 +215,22 @@ def my_bookings(request):
         "fitness_class__location"
     ).order_by("-fitness_class__start_time")
 
-    cancelled_bookings = Booking.objects.filter(
+    admin_cancelled_bookings = Booking.objects.filter(
         user=request.user,
-        status="cancelled"
+        status="active",
+        fitness_class__status="cancelled"
     ).select_related(
         "fitness_class",
         "fitness_class__class_type",
         "fitness_class__instructor",
         "fitness_class__location"
     ).order_by("-fitness_class__start_time")
+
+    past_bookings = sorted(
+        list(completed_bookings) + list(admin_cancelled_bookings),
+        key=lambda booking: booking.fitness_class.start_time,
+        reverse=True
+    )
 
     profile_form = ProfileUpdateForm(instance=request.user)
     password_form = PasswordChangeForm(request.user)
@@ -231,7 +239,7 @@ def my_bookings(request):
         "bookings": upcoming_bookings,
         "upcoming_bookings": upcoming_bookings,
         "past_bookings": past_bookings,
-        "cancelled_bookings": cancelled_bookings,
+        "cancelled_bookings": admin_cancelled_bookings,
         "profile_form": profile_form,
         "password_form": password_form
     })
