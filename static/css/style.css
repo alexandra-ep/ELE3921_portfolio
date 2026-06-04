@@ -393,6 +393,10 @@ footer {
     transform: translateY(-2px);
 }
 
+.full-btn {
+    cursor: default;
+}
+
 .booked-btn {
     background-color: #1b6d64;
     color: #efecec;

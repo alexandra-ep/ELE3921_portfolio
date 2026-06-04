@@ -72,7 +72,7 @@
                                             <span class="btn booked-btn rsp-btn">Booked</span>
 
                                         {% elif fitness_class.is_full %}
-                                            <span class="btn warning-btn rsp-btn">Full</span>
+                                            <span class="btn warning-btn full-btn rsp-btn">Full</span>
 
                                         {% else %}
                                             <form method="post" action="{% url 'book_class' fitness_class.id %}" onsubmit="return window.confirm('Are you sure you want to book this class? You cannot cancel the class when it is less than 3 hours until the class starts.');">
