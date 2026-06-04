@@ -35,9 +35,9 @@
                             <p><strong>{{ fitness_class.class_type.name}}</strong></p>
                             <p><i class="fa-solid fa-clock"></i>{{ fitness_class.start_time|date:"H:i" }} - {{ fitness_class.end_time|date:"H:i" }}</p>
                             {% if fitness_class.is_full %}
-                                <p class="spots-remaining">No available spots</p>
+                                <p class="spots-remaining-ctr">No available spots</p>
                             {% else %}
-                                <p class="spots-remaining">{{ fitness_class.spots_remaining }} available spots</p>
+                                <p class="spots-remaining-ctr">{{ fitness_class.spots_remaining }} available spots</p>
                             {% endif %}
                         </div>
                     </a>

@@ -507,6 +507,10 @@ footer {
     margin: 8px 0px;
 }
 
+.spots-remaining-ctr {
+    font-weight: bold;
+}
+
 .class-card p i {
     margin-right: 8px;
 }
@@ -1004,6 +1008,8 @@ footer {
     z-index: 9999;
     padding: 20px;
     display: none;
+    overflow-y: auto;
+    overscroll-behavior: contain;
 }
 
 .profile-popup-overlay.is-open {
